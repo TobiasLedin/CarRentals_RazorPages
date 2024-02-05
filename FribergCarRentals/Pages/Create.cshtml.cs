@@ -18,15 +18,11 @@ namespace FribergCarRentals.Pages
             _vehicleRepo = vehicleRepo;
             _bookingRepo = bookingRepo;
             Object = new CreateVM();
-
-            //BookingData = new BookingDataVM();
         }
 
         [BindProperty(SupportsGet = true)]
         public CreateVM Object { get; set; }
-
-        //[BindProperty]
-        //public BookingDataVM BookingData { get; set; }
+      
 
         public IActionResult OnGetCustomer()
         {
@@ -69,7 +65,7 @@ namespace FribergCarRentals.Pages
 
             _customerRepo.Create(Object.Customer);
 
-            return RedirectToPage("./Index");   //TODO
+            return RedirectToPage("List", "Customers");
         }
 
         public IActionResult OnPostVehicle()
@@ -82,7 +78,7 @@ namespace FribergCarRentals.Pages
 
             _vehicleRepo.Create(Object.Vehicle);
 
-            return RedirectToPage("./Index");   //TODO
+            return RedirectToPage("List", "Vehicles");
         }
 
         public IActionResult OnPostBooking()
@@ -108,7 +104,7 @@ namespace FribergCarRentals.Pages
 
             _bookingRepo.Create(booking);
 
-            return RedirectToPage("List", "Bookings");   //TODO
+            return RedirectToPage("List", "Bookings");
         }
     }
 }

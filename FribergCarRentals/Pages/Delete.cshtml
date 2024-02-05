@@ -46,7 +46,7 @@
         </dd>
     </dl>
     <form method="post">
-        <input type="hidden" asp-for="Object.Vehicle" />
+        <input type="hidden" asp-for="Object.Vehicle.VehicleId" />
         <input type="submit" value="Delete" asp-page-handler="Vehicle" class="btn btn-danger" /> |
         <a asp-page="List" asp-page-handler="Vehicles">Back to List</a>
     </form>
@@ -96,20 +96,20 @@
 @if (type == "Booking")
 {
     <div>
-        <h4>Customer</h4>
+        <h4>Booking</h4>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Object.Booking.Vehicle)
+                Vehicle
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Object.Booking.Vehicle)
+                @Html.DisplayFor(model => model.Object.Booking.Vehicle.Brand) @Html.DisplayFor(model => model.Object.Booking.Vehicle.Model)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Object.Booking.Customer)
+                Customer
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Object.Booking.Customer)
+                @Html.DisplayFor(model => model.Object.Booking.Customer.FirstName) @Html.DisplayFor(model => model.Object.Booking.Customer.LastName)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Object.Booking.BookingStart)

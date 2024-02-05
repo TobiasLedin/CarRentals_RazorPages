@@ -19,50 +19,50 @@ namespace FribergCarRentals.Pages
             Object = new DeleteVM();
         }
 
-
+        [BindProperty]
         public DeleteVM Object { get; set; }
 
 
         public IActionResult OnGetVehicle(int id)
         {
             Object.Vehicle = _vehicleRepo.GetById(id);
-            ViewData["type"] = "Vehicle";
+            Object.Type = "Vehicle";
             return Page();
         }
 
         public IActionResult OnGetCustomer(int id)
         {
             Object.Customer = _customerRepo.GetById(id);
-            ViewData["type"] = "Customer";
+            Object.Type = "Customer";
             return Page();
         }
 
         public IActionResult OnGetBooking(int id)
         {
-            Object.Customer = _customerRepo.GetById(id);
-            ViewData["type"] = "Customer";
+            Object.Booking = _bookingRepo.GetById(id);
+            Object.Type = "Booking";
             return Page();
         }
 
-        public IActionResult OnPostVehicle(int id)
+        public IActionResult OnPostVehicle()
         {
-            _vehicleRepo.Delete(id);
+            _vehicleRepo.Delete(Object.Vehicle.VehicleId);
 
             return RedirectToPage("List", "Vehicles");
         }
 
-        public IActionResult OnPostCustomer(int id)
+        public IActionResult OnPostCustomer()
         {
-            _customerRepo.Delete(id);
+            _customerRepo.Delete(Object.Customer.CustomerId);
 
             return RedirectToPage("List", "Customers");
         }
 
         public IActionResult OnPostBooking()
         {
-            _customerRepo.Delete(Object.Booking.BookingId);
+            _bookingRepo.Delete(Object.Booking.BookingId);
 
-            return RedirectToPage("List", "Customers");
+            return RedirectToPage("List", "Bookings");
         }
     }
 }

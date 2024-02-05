@@ -28,13 +28,11 @@ namespace FribergCarRentals.Models
         [Required]
         [DisplayName("Vehicle ID")]
         public int VehicleId { get; set; }
-
-        [Required]
+        
         [ForeignKey("CustomerId")]
         [DeleteBehavior(DeleteBehavior.SetNull)]
         public Customer Customer { get; set; }
-
-        [Required]
+        
         [ForeignKey("VehicleId")]
         [DeleteBehavior(DeleteBehavior.SetNull)]
         public Vehicle Vehicle { get; set; }

@@ -61,12 +61,12 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.LoginData.Customer.Email" class="control-label"></label>
-                    <input asp-for="@Model.LoginData.Customer.Email" class="form-control" />
+                    <input asp-for="@Model.LoginData.Customer.Email" autocomplete="new-password" class="form-control" />
                     <span asp-validation-for="@Model.LoginData.Customer.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.LoginData.Customer.Password" class="control-label"></label>
-                    <input asp-for="@Model.LoginData.Customer.Password" class="form-control" />
+                    <input asp-for="@Model.LoginData.Customer.Password" autocomplete="new-password" class="form-control" />
                     <span asp-validation-for="@Model.LoginData.Customer.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">

@@ -11,6 +11,7 @@ namespace FribergCarRentals.Models
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
+        [MinLength(6)]
         public string Password { get; set; }
 
     }

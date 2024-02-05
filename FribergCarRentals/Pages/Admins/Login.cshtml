@@ -47,3 +47,9 @@
         <a asp-page="/Index" class="nav-link">Return Home</a>
     </div>
 }
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

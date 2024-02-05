@@ -71,6 +71,7 @@ namespace FribergCarRentals.Pages.Customers
         public IActionResult OnPostCreate()
         {
             Customer customer = LoginData.Customer;
+            ModelState.Clear();
             if (TryValidateModel(customer))
             {
                 _customerRepo.Create(customer);

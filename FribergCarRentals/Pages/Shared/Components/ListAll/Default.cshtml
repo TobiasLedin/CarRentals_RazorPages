@@ -8,6 +8,8 @@
 
 @if (type == "Vehicle")
 {
+    <h2>Vehicles available for rental</h2>
+
     <table class="table">
         <thead>
             <tr>
@@ -34,7 +36,7 @@
             {
                 <tr>
                     <td>
-                        <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 100px; max-height: 100px; width: auto; height: auto;" />
+                        <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;" />
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Brand)
@@ -56,7 +58,6 @@
                         }
                         @if (user == "customer" || user == "visitor")
                         {
-                            <a asp-page="Details" asp-route-id="@item.VehicleId">Details</a>
                             <a asp-page="Create" asp-page-handler="Booking" asp-route-Object.VehicleId="@item.VehicleId">Book</a>
                         }
                     </td>
@@ -236,7 +237,7 @@
 {
     <h2>Customers</h2>
     <p>
-        <a asp-page="Create" asp-page-handler="Customer">Create New</a>
+        <a asp-page="Create" asp-page-handler="Customer">Create new customer</a>
     </p>
     <table class="table">
         <thead>

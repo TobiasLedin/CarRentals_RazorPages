@@ -8,5 +8,6 @@ namespace FribergCarRentals.ViewModels
         public Customer Customer { get; set; } = default!;
         public Booking Booking { get; set; } = default!;
         public string Type { get; set; } = default!;
+
     }
 }
