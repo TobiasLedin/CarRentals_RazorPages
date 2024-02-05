@@ -7,14 +7,7 @@ namespace FribergCarRentals.Pages.Customers
     {
         public void OnGet()
         {
-            if (HttpContext.Session.TryGetValue("_customer", out _))
-            {
-                ViewData["type"] = "Customer";
-            }
-            else
-            {
-                ViewData["type"] = "NoCustomer";
-            }
+            
         }
     }
 }

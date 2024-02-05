@@ -57,7 +57,7 @@
                         @if (user == "customer" || user == "visitor")
                         {
                             <a asp-page="Details" asp-route-id="@item.VehicleId">Details</a>
-                            <a asp-page="Create" asp-route-BookingData.VehicleId="@item.VehicleId">Book</a>
+                            <a asp-page="Create" asp-page-handler="Booking" asp-route-id="@item.VehicleId">Book</a>
                         }
                     </td>
                 </tr>

@@ -1,5 +1,6 @@
 using FribergCarRentals.DataAccess.Interfaces;
 using FribergCarRentals.Models;
+using FribergCarRentals.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,40 +10,58 @@ namespace FribergCarRentals.Pages
     {
         private readonly ICustomerRepository _customerRepo;
         private readonly IVehicleRepository _vehicleRepo;
+        private readonly IBookingRepository _bookingRepo;
 
-
-        public CreateModel(ICustomerRepository customerRepo, IVehicleRepository vehicleRepo)
+        public CreateModel(ICustomerRepository customerRepo, IVehicleRepository vehicleRepo, IBookingRepository bookingRepo)
         {
             _customerRepo = customerRepo;
             _vehicleRepo = vehicleRepo;
+            _bookingRepo = bookingRepo;
+            Object = new CreateVM();
+
+            //BookingData = new BookingDataVM();
         }
 
-        [BindProperty]
-        public Customer Customer { get; set; } = default!;
-        [BindProperty]
-        public Vehicle Vehicle { get; set; } = default!;
+        [BindProperty(SupportsGet = true)]
+        public CreateVM Object { get; set; }
+
+        //[BindProperty]
+        //public BookingDataVM BookingData { get; set; }
 
         public IActionResult OnGetCustomer()
         {
-            ViewData["type"] = "customer";
+            Object.Type = "customer";
             return Page();
         }
 
         public IActionResult OnGetVehicle()
         {
-            ViewData["type"] = "vehicle";
+            Object.Type = "vehicle";
+            return Page();
+        }
+
+        public IActionResult OnGetBooking()
+        {
+            if(!HttpContext.Session.TryGetValue("_customer", out _))
+            {
+                HttpContext.Session.SetInt32("_vehicleId", Object.VehicleId); // Sätt VehicleId till sessionen medan kund skapas.
+                return RedirectToPage("/Customers/Login");
+            }
+            
+            Object.Vehicle = _vehicleRepo.GetById(Object.VehicleId);
+            Object.Type = "booking";
             return Page();
         }
 
         public IActionResult OnPostCustomer()
         {
             ModelState.Clear();
-            if (!TryValidateModel(Customer))
+            if (!TryValidateModel(Object.Customer))
             {
                 return Page();
             }
 
-            _customerRepo.Create(Customer);
+            _customerRepo.Create(Object.Customer);
 
             return RedirectToPage("./Index");   //TODO
         }
@@ -50,12 +69,36 @@ namespace FribergCarRentals.Pages
         public IActionResult OnPostVehicle()
         {
             ModelState.Clear();
-            if (!TryValidateModel(Vehicle))
+            if (!TryValidateModel(Object.Vehicle))
             {
                 return Page();
             }
 
-            _vehicleRepo.Create(Vehicle);
+            _vehicleRepo.Create(Object.Vehicle);
+
+            return RedirectToPage("./Index");   //TODO
+        }
+
+        public IActionResult OnPostBooking()
+        {
+            int customerId = (int)HttpContext.Session.GetInt32("_customer");
+            var customer = _customerRepo.GetById(customerId);
+
+            Booking booking = new()
+            {
+                CustomerId = customerId,
+                VehicleId = Object.VehicleId,
+                BookingStart = Object.Booking.BookingStart,
+                BookingEnd = Object.Booking.BookingEnd
+            };
+
+            ModelState.Clear();
+            if (!TryValidateModel(booking))
+            {
+                return Page();
+            }
+
+            _vehicleRepo.Create(Object.Vehicle);
 
             return RedirectToPage("./Index");   //TODO
         }

@@ -17,6 +17,7 @@ namespace FribergCarRentals.Pages.Customers
             LoginData = new LoginVM();
         }
 
+        [BindProperty]
         public LoginVM LoginData { get; set; }
 
         public IActionResult OnGet()
@@ -32,12 +33,17 @@ namespace FribergCarRentals.Pages.Customers
             return Page();
         }
 
-        public IActionResult OnPost(string email, string password)
+        public IActionResult OnPost()
         {
-            LoginData.Customer = _customerRepo.GetByEmail(email);
-            if (LoginData.Customer != null && LoginData.Customer.Password == password)
+            LoginData.Customer = _customerRepo.GetByEmail(LoginData.Email);
+            if (LoginData.Customer != null && LoginData.Customer.Password == LoginData.Password)
             {
                 HttpContext.Session.SetInt32(sessionCustomer, LoginData.Customer.CustomerId);   // Session state
+
+                if (HttpContext.Session.TryGetValue("_vehicleId", out _))
+                {
+                    return RedirectToPage("/Create", "Booking");
+                }
 
                 return RedirectToPage("Overview");
             }
@@ -45,10 +51,11 @@ namespace FribergCarRentals.Pages.Customers
             {
                 ViewData["Fail"] = "There is no account with this email!";
             }
-            if (LoginData.Customer != null && LoginData.Customer.Password != password)
+            if (LoginData.Customer != null && LoginData.Customer.Password != LoginData.Password)
             {
                 ViewData["Fail"] = "The email and password does not match!";
             }
+
             return Page();
         }
 
