@@ -1,5 +1,5 @@
 ﻿@page "/admin"
-@model AdminModel
+@model LoginModel
 @{
     ViewData["Title"] = "Login";
     ViewData["navbar"] = "login";
@@ -19,14 +19,14 @@
         <div class="col-md-4">
             <form asp-page-handler="Login">
                 <div class="form-group">
-                    <label asp-for="@Model.Email" class="control-label"></label>
-                    <input asp-for="@Model.Email" class="form-control" />
-                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    <label asp-for="@Model.LoginData.Email" class="control-label"></label>
+                    <input asp-for="@Model.LoginData.Email" class="form-control" />
+                    <span asp-validation-for="@Model.LoginData.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="@Model.Password" class="control-label"></label>
-                    <input asp-for="@Model.Password" type="password" class="form-control" />
-                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                    <label asp-for="@Model.LoginData.Password" class="control-label"></label>
+                    <input asp-for="@Model.LoginData.Password" type="password" class="form-control" />
+                    <span asp-validation-for="@Model.LoginData.Password" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">

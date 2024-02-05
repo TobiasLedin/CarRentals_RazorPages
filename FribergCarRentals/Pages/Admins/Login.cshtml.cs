@@ -1,56 +1,54 @@
 using FribergCarRentals.DataAccess.Interfaces;
-using FribergCarRentals.Models;
+using FribergCarRentals.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FribergCarRentals.Pages.AdminPages
+namespace FribergCarRentals.Pages.Admins
 {
-    public class AdminModel : PageModel
+    public class LoginModel : PageModel
     {
         private readonly IAdminRepository _adminRepo;
         private const string sessionAdmin = "_admin";
 
-        public AdminModel(IAdminRepository adminRepo)
+        public LoginModel(IAdminRepository adminRepo)
         {
             _adminRepo = adminRepo;
+            LoginData = new LoginVM();
         }
 
-        //Properties
-        public Admin? Admin { get; set; }
-        public string? Email { get; set; }
-        public string? Password { get; set; }
+        public LoginVM LoginData { get; set; }
 
         public IActionResult OnGet()
         {
-            ViewData["action"] = "login";
+            LoginData.Action = "login";
             return Page();
         }
 
         public IActionResult OnGetLogout()
         {
             HttpContext.Session.Remove(sessionAdmin);
-            ViewData["action"] = "logout";
+            LoginData.Action = "logout";
             return Page();
         }
 
-        public IActionResult OnPostLogin(string email, string password)
+        public IActionResult OnPost(string email, string password)
         {
-            Admin = _adminRepo.GetByEmail(email);
-            if (Admin != null && Admin.Password == password)
+            LoginData.Admin = _adminRepo.GetByEmail(email);
+            if (LoginData.Admin != null && LoginData.Admin.Password == password)
             {
                 // Session state
 
-                HttpContext.Session.SetInt32(sessionAdmin, Admin.AdminId);
+                HttpContext.Session.SetInt32(sessionAdmin, LoginData.Admin.AdminId);
 
                 // Session state
 
                 return RedirectToPage("Overview");
             }
-            if (Admin == null)
+            if (LoginData.Admin == null)
             {
                 ViewData["Fail"] = "There is no account with this email!";
             }
-            if (Admin != null && Admin.Password != password)
+            if (LoginData.Admin != null && LoginData.Admin.Password != password)
             {
                 ViewData["Fail"] = "The email and password does not match!";
             }
