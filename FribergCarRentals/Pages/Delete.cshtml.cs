@@ -19,85 +19,49 @@ namespace FribergCarRentals.Pages
             Object = new DeleteVM();
         }
 
-        
+
         public DeleteVM Object { get; set; }
 
 
-        public IActionResult OnGetVehicle(int id, string action)
+        public IActionResult OnGetVehicle(int id)
         {
             Object.Vehicle = _vehicleRepo.GetById(id);
             ViewData["type"] = "Vehicle";
-            ViewData["action"] = action;
             return Page();
         }
 
-        public IActionResult OnGetCustomer(int id, string action)
+        public IActionResult OnGetCustomer(int id)
         {
             Object.Customer = _customerRepo.GetById(id);
             ViewData["type"] = "Customer";
-            ViewData["action"] = action;
             return Page();
         }
 
-        public IActionResult OnGetBooking(int id, string action)
+        public IActionResult OnGetBooking(int id)
         {
             Object.Customer = _customerRepo.GetById(id);
             ViewData["type"] = "Customer";
-            ViewData["action"] = action;
             return Page();
         }
 
-        public IActionResult OnPostVehicle(int id, string action)
+        public IActionResult OnPostVehicle(int id)
         {
-            if (action == "edit")
-            {
-                ModelState.Clear();
-                if (!TryValidateModel(Object.Vehicle))
-                {
-                    return Page();  // TODO: felmeddelande
-                }
-                _vehicleRepo.Update(Object.Vehicle);
-            }
-            else if (action == "delete")
-            {
-                _vehicleRepo.Delete(id);
-            }
+            _vehicleRepo.Delete(id);
+
             return RedirectToPage("List", "Vehicles");
         }
 
-        public IActionResult OnPostCustomer(int id, string action)
+        public IActionResult OnPostCustomer(int id)
         {
-            if (action == "edit")
-            {
-                ModelState.Clear();
-                if (!TryValidateModel(Object.Customer))
-                {
-                    return Page();  // TODO: felmeddelande
-                }
-                _customerRepo.Update(Object.Customer);
-            }
-            else if (action == "delete")
-            {
-                _customerRepo.Delete(id);
-            }
+            _customerRepo.Delete(id);
+
             return RedirectToPage("List", "Customers");
         }
 
-        public IActionResult OnPostBooking(int id, string action)
+        public IActionResult OnPostBooking()
         {
-            if (action == "edit")
-            {
-                ModelState.Clear();
-                if (!TryValidateModel(Object.Customer))
-                {
-                    return Page();  // TODO: felmeddelande
-                }
-                _customerRepo.Update(Object.Customer);
-            }
-            else if (action == "delete")
-            {
-                _customerRepo.Delete(id);
-            }
+            _customerRepo.Delete(Object.Booking.BookingId);
+
             return RedirectToPage("List", "Customers");
         }
     }

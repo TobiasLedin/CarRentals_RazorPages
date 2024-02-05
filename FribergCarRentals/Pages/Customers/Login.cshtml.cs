@@ -22,14 +22,18 @@ namespace FribergCarRentals.Pages.Customers
 
         public IActionResult OnGet()
         {
+            ViewData["NavBar"] = "NoDisplay";
             LoginData.Action = "login";
+
             return Page();
         }
 
         public IActionResult OnGetLogout()
         {
+            ViewData["NavBar"] = "NoDisplay";
             HttpContext.Session.Remove(sessionCustomer);
             LoginData.Action = "logout";
+
             return Page();
         }
 
@@ -39,6 +43,11 @@ namespace FribergCarRentals.Pages.Customers
             if (LoginData.Customer != null && LoginData.Customer.Password == LoginData.Password)
             {
                 HttpContext.Session.SetInt32(sessionCustomer, LoginData.Customer.CustomerId);   // Session state
+
+                if (HttpContext.Session.TryGetValue("_admin", out _))     // Close admin session if avail.
+                {
+                    HttpContext.Session.Remove("_admin");
+                }
 
                 if (HttpContext.Session.TryGetValue("_vehicleId", out _))
                 {

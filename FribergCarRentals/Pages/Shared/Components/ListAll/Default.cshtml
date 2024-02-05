@@ -1,6 +1,6 @@
 ﻿@using FribergCarRentals.ViewModels
 @model ListAllVM;
-    
+
 @{
     var type = Model.Type;
     var user = Model.User;
@@ -51,13 +51,13 @@
                     <td>
                         @if (user == "admin")
                         {
-                            <a asp-page="Edit" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId" asp-route-action="edit">Edit</a>
-                            <a asp-page="Change" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId" asp-route-action="delete">Delete</a>
+                            <a asp-page="Edit" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId">Edit</a>
+                            <a asp-page="Delete" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId">Delete</a>
                         }
                         @if (user == "customer" || user == "visitor")
                         {
                             <a asp-page="Details" asp-route-id="@item.VehicleId">Details</a>
-                            <a asp-page="Create" asp-page-handler="Booking" asp-route-id="@item.VehicleId">Book</a>
+                            <a asp-page="Create" asp-page-handler="Booking" asp-route-Object.VehicleId="@item.VehicleId">Book</a>
                         }
                     </td>
                 </tr>
@@ -66,7 +66,7 @@
     </table>
 }
 
-@if(type == "Booking")
+@if (type == "Booking")
 {
     <h2>Upcoming bookings</h2>
 
@@ -123,23 +123,21 @@
 
                     @if (user == "admin")
                     {
-                        
                         @if (item.Customer != null)
                         {
                             <td>
                                 @Html.DisplayFor(modelItem => item.CustomerId)
                             </td>
                         }
-                        @if(item.Customer == null)
+                        @if (item.Customer == null)
                         {
                             <td>
                                 Deleted
                             </td>
                         }
-                        
                     }
                     <td>
-                        <a asp-page="Edit" asp-page-handler="Booking" asp-route-id="@item.BookingId" asp-route-action="delete">Delete</a>
+                        <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
                     </td>
                 </tr>
             }
@@ -151,7 +149,6 @@
     }
 
     <h2>Historical bookings</h2>
-
 
     <table class="table">
         <thead>
@@ -176,7 +173,7 @@
                 }
                 <th></th>
             </tr>
-            
+
         </thead>
         <tbody>
             @foreach (var item in Model.Bookings.Where(x => x.BookingStart < DateTime.Now))
@@ -221,10 +218,10 @@
                             </td>
                         }
 
+                        <td>
+                            <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
+                        </td>
                     }
-                    <td>
-                        <a asp-page="Edit" asp-page-handler="Booking" asp-route-id="@item.BookingId" asp-route-action="delete">Delete</a>
-                    </td>
                 </tr>
             }
         </tbody>
@@ -276,9 +273,8 @@
                         @Html.DisplayFor(modelItem => item.Password)
                     </td>
                     <td>
-                        <a asp-page="Edit" asp-page-handler="Customer" asp-route-id="@item.CustomerId" asp-route-action="edit">Edit</a> |
-                        <a asp-page="/Details" asp-route-id="@item.CustomerId">Details</a> |
-                        <a asp-page="Edit" asp-page-handler="Customer" asp-route-id="@item.CustomerId" asp-route-action="delete">Delete</a>
+                        <a asp-page="Edit" asp-page-handler="Customer" asp-route-id="@item.CustomerId">Edit</a> |
+                        <a asp-page="Delete" asp-page-handler="Customer" asp-route-id="@item.CustomerId">Delete</a>
                     </td>
                 </tr>
             }

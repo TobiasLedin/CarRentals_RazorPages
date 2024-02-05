@@ -53,7 +53,7 @@ namespace FribergCarRentals.DataAccess.Repositories
                 }
                 else
                 {
-                    bookings = _applicationDbContext.Bookings.Include(x => x.Customer).Include(x => x.Vehicle).ToList();
+                    bookings = _applicationDbContext.Bookings.Include(x => x.Customer).Include(x => x.Vehicle).OrderBy(x => x.BookingStart).ToList();
                 }
                 return bookings;
             }

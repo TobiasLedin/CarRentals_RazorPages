@@ -8,6 +8,11 @@
 <nav class="navbar">
     <ul class="navbar-nav">
         
+        @if (navbar == "NoDisplay")
+        {
+            
+        }
+
         @if (navbar == "visitor")
         {
             <li class="nav-item push-lh">
@@ -24,11 +29,14 @@
         @if (navbar == "customer")
         {
             <li class="nav-item push-lh">
-                <a class="nav-link" asp-page="List" asp-page-handler="Vehicles">Vehicles</a>
+                <a class="nav-link" asp-page="/Customers/Overview">Overview</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-page="/List" asp-page-handler="Vehicles">Vehicles</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" asp-page="List" asp-page-handler="Bookings">Bookings</a>
+                <a class="nav-link" asp-page="/List" asp-page-handler="Bookings">Bookings</a>
             </li>
 
             <li class="nav-item push-rh">

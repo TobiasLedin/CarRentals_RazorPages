@@ -22,64 +22,9 @@
                     <img src="/logo-img.png" class="logo-img">
                 </div>
                 <div class="container-nav">
+                    
+                        @await Component.InvokeAsync(nameof(NavBar), new { NoDisplay = ViewData["NavBar"]})
 
-                    @await Component.InvokeAsync(nameof(NavBar))
-
-                    @* <nav class="navbar">
-                        <ul class="navbar-nav">
-                            @if (ViewData["navbar"] == "login")
-                            {
-
-                            }
-                            @if (ViewData["navbar"] == "visitor")
-                            {
-                                <li class="nav-item push-lh">
-                                    <a class="nav-link" asp-page="Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-page="List" asp-page-handler="Vehicles">Vehicles</a>
-                                </li>
-                                <li class="nav-item push-rh">
-                                    <a class="nav-link" asp-page="/Customers/Login">Login</a>
-                                </li>
-                            }
-                            @if (ViewData["navbar"] == "customer")
-                            {
-                                <li class="nav-item push-lh">
-                                    <a class="nav-link" asp-page="List" asp-page-handler="Vehicles">Vehicles</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-page="List" asp-page-handler="Bookings">Bookings</a>
-                                </li>
-
-                                <li class="nav-item push-rh">
-                                    <a class="nav-link" asp-page="/Customers/Login" asp-page-handler="Logout">Logout</a>
-                                </li>
-                            }
-                            @if ()
-                            {
-                                <li class="nav-item push-lh">
-                                    <a class="nav-link" asp-page="/Admins/Overview">Overview</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-page="/List" asp-page-handler="Vehicles">Vehicles</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-page="/List" asp-page-handler="Bookings">Bookings</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-page="/List" asp-page-handler="Customers">Customers</a>
-                                </li>
-
-                                <li class="nav-item push-rh">
-                                    <a class="nav-link" asp-page="/Admins/Login" asp-page-handler="Logout">Logout</a>
-                                </li>
-                            }
-                        </ul>
-                    </nav> *@
                 </div>
             </header>
 

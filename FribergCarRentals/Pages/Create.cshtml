@@ -114,6 +114,7 @@
                     <span asp-validation-for="Object.Booking.BookingEnd" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <input type="hidden" value="@Model.Object.Vehicle.VehicleId" asp-for="Object.VehicleId" />
                     <input type="submit" value="Book" asp-page-handler="Booking" class="btn btn-primary" />
                 </div>
             </form>

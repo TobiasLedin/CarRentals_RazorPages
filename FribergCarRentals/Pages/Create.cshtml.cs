@@ -42,12 +42,18 @@ namespace FribergCarRentals.Pages
 
         public IActionResult OnGetBooking()
         {
-            if(!HttpContext.Session.TryGetValue("_customer", out _))
+            if(!HttpContext.Session.TryGetValue("_customer", out _))    // Check if a customer i logged in. If not, save vehicleId in session and redirect to Login page.
             {
-                HttpContext.Session.SetInt32("_vehicleId", Object.VehicleId); // Sätt VehicleId till sessionen medan kund skapas.
+                HttpContext.Session.SetInt32("_vehicleId", Object.VehicleId);
                 return RedirectToPage("/Customers/Login");
             }
             
+            if(HttpContext.Session.TryGetValue("_vehicleId", out _))    // If a vehicleId is present in session, use this for the booking then erase from session.
+            {
+                Object.VehicleId = (int)HttpContext.Session.GetInt32("_vehicleId");
+                HttpContext.Session.Remove("_vehicleId");
+            }
+
             Object.Vehicle = _vehicleRepo.GetById(Object.VehicleId);
             Object.Type = "booking";
             return Page();
@@ -87,7 +93,9 @@ namespace FribergCarRentals.Pages
             Booking booking = new()
             {
                 CustomerId = customerId,
+                Customer = customer,
                 VehicleId = Object.VehicleId,
+                Vehicle = _vehicleRepo.GetById(Object.VehicleId),
                 BookingStart = Object.Booking.BookingStart,
                 BookingEnd = Object.Booking.BookingEnd
             };
@@ -98,9 +106,9 @@ namespace FribergCarRentals.Pages
                 return Page();
             }
 
-            _vehicleRepo.Create(Object.Vehicle);
+            _bookingRepo.Create(booking);
 
-            return RedirectToPage("./Index");   //TODO
+            return RedirectToPage("List", "Bookings");   //TODO
         }
     }
 }

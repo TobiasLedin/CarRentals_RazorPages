@@ -13,7 +13,7 @@ namespace FribergCarRentals.Components
 
         public NavBarVM UserType { get; set; }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(string NoDisplay)
         {
             if (HttpContext.Session.TryGetValue("_admin", out _))
             {
@@ -27,6 +27,12 @@ namespace FribergCarRentals.Components
             {
                 UserType.UserType = "visitor";
             }
+
+            if(NoDisplay != null)
+            {
+                UserType.UserType = NoDisplay;
+            }
+
 
             return View(UserType);
         }
