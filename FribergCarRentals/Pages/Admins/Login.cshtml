@@ -1,0 +1,50 @@
+﻿@page "/admin"
+@model AdminModel
+@{
+    ViewData["Title"] = "Login";
+    ViewData["navbar"] = "login";
+    var action = (string)ViewData["action"];
+
+}
+
+@if (action == "login")
+{
+    <div class="text-center">
+        <h2>Admin login</h2>
+    </div>
+
+    <p class="text-danger">@ViewData["Fail"]</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-page-handler="Login">
+                <div class="form-group">
+                    <label asp-for="@Model.Email" class="control-label"></label>
+                    <input asp-for="@Model.Email" class="form-control" />
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Password" class="control-label"></label>
+                    <input asp-for="@Model.Password" type="password" class="form-control" />
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Login" class="btn btn-primary" />
+                </div>
+                <br />
+
+            </form>
+            <a asp-page="/Index" class="nav-link">Return Home</a>
+        </div>
+    </div>
+}
+
+@if (action == "logout")
+{
+    <div class="text-center">
+        <h3>You are now logged out.</h3>
+
+        <a asp-page="/Index" class="nav-link">Return Home</a>
+    </div>
+}

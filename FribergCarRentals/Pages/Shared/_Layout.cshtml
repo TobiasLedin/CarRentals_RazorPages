@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]  FribergCarRentals</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FribergCarRentals.styles.css" asp-append-version="true" />
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Dela+Gothic+One|Oswald'>
+</head>
+<body>
+
+    <div class="container-layout">
+
+        <div class="container-body">
+
+            <header>
+                <div class="navbar-logo">
+                    <img src="/logo-img.png" class="logo-img">
+                </div>
+                <div class="container-nav">
+                    <nav class="navbar">
+                        <ul class="navbar-nav">
+                            @if (ViewData["navbar"] == "login")
+                            {
+
+                            }
+                            @if (ViewData["navbar"] == "visitor")
+                            {
+                                <li class="nav-item push-lh">
+                                    <a class="nav-link" asp-page="/Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-page="/list">Vehicles</a>
+                                </li>
+                                <li class="nav-item push-rh">
+                                    <a class="nav-link" asp-page="/CustomerPages/Login">Login</a>
+                                </li>
+                            }
+                            @if (ViewData["navbar"] == "customer")
+                            {
+                                <li class="nav-item push-lh">
+                                    <a class="nav-link" asp-page="/CustomerPages/List" asp-page-handler="Vehicles">Vehicles</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-page="/CustomerPages/List" asp-page-handler="Bookings">Bookings</a>
+                                </li>
+
+                                <li class="nav-item push-rh">
+                                    <a class="nav-link" asp-page="/CustomerPages/Login" asp-page-handler="Logout">Logout</a>
+                                </li>
+                            }
+                            @if (ViewData["navbar"] == "admin")
+                            {
+                                <li class="nav-item push-lh">
+                                    <a class="nav-link" asp-page="/AdminPages/Overview">Overview</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-page="/AdminPages/List" asp-page-handler="Vehicles">Vehicles</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-page="/AdminPages/List" asp-page-handler="Bookings">Bookings</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-page="/AdminPages/List" asp-page-handler="Customers">Customers</a>
+                                </li>
+
+                                <li class="nav-item push-rh">
+                                    <a class="nav-link" asp-page="/AdminPages/Login" asp-page-handler="Logout">Logout</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+
+
+            <div class="container-content">
+                <main role="main" class="">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-top">
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

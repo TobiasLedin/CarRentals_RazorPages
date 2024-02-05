@@ -1,0 +1,252 @@
+﻿@page
+@using FribergCarRentals.ViewModels
+@model EditAllVM;
+
+@{
+    ViewData["Title"] = ViewData["type"];
+    var type = (string)ViewData["type"];
+    var action = (string)ViewData["action"];
+}
+
+<span>Blabalbab</span>
+
+
+@if (type == "Vehicle")
+{
+    @if (action == "edit")
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Vehicle.VehicleId" />
+                    <div class="form-group">
+                        <label asp-for="Vehicle.Brand" class="control-label"></label>
+                        <input asp-for="Vehicle.Brand" class="form-control" />
+                        <span asp-validation-for="Vehicle.Brand" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Vehicle.Model" class="control-label"></label>
+                        <input asp-for="Vehicle.Model" class="form-control" />
+                        <span asp-validation-for="Vehicle.Model" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Vehicle.Year" class="control-label"></label>
+                        <input asp-for="Vehicle.Year" class="form-control" />
+                        <span asp-validation-for="Vehicle.Year" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Vehicle.Comment" class="control-label"></label>
+                        <input asp-for="Vehicle.Comment" class="form-control" />
+                        <span asp-validation-for="Vehicle.Comment" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Vehicle.ImageUrl" class="control-label"></label>
+                        <input asp-for="Vehicle.ImageUrl" class="form-control" />
+                        <span asp-validation-for="Vehicle.ImageUrl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="Vehicle" />
+                        <input type="submit" value="Save" asp-page-handler="Vehicle" asp-route-id="@Model.Vehicle.VehicleId" asp-route-action="edit" class="btn btn-primary" />
+                        <a asp-page="List" asp-page-handler="Vehicle">Back to List</a>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+    @if (action == "delete")
+    {
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+            <h4>Vehicle</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Vehicle.Brand)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Vehicle.Brand)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Vehicle.Model)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Vehicle.Model)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Vehicle.Year)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Vehicle.Year)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Vehicle.Comment)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Vehicle.Comment)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Vehicle.ImageUrl)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Vehicle.ImageUrl)
+                </dd>
+            </dl>
+            <form method="post">
+                <input type="hidden" asp-for="Vehicle" />
+                <input type="submit" value="Delete" asp-page-handler="Vehicle" asp-route-id="@Model.Vehicle.VehicleId" asp-route-action="@action" class="btn btn-danger" /> |
+                <a asp-page="List" asp-page-handler="@type">Back to List</a>
+            </form>
+        </div>
+    }
+}
+
+@if (type == "booking")
+{
+    @if (action == "delete")
+    {
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+            <h4>Booking</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Booking.Vehicle.Brand)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Booking.Vehicle.Brand)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Booking.Vehicle.Model)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Booking.Vehicle.Model)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Booking.BookingStart)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Booking.BookingStart)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Booking.BookingEnd)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Booking.BookingEnd)
+                </dd>
+
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Booking.Customer.CustomerId)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Booking.Customer.CustomerId)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Booking.Customer.FirstName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Booking.Customer.FirstName)
+                    @Html.DisplayFor(model => model.Booking.Customer.LastName)
+                </dd>
+
+            </dl>
+
+            <form method="post">
+                <input type="hidden" asp-for="Booking" />
+                <input type="submit" value="Delete" asp-page-handler="Vehicle" asp-route-id="@Model.Vehicle.VehicleId" asp-route-action="@action" class="btn btn-danger" /> |
+                <a asp-page="List" asp-page-handler="@type">Back to List</a>
+            </form>
+        </div>
+    }
+}
+
+@if (type == "customer")
+{
+    @if (action == "edit")
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Customer.CustomerId" />
+                    <div class="form-group">
+                        <label asp-for="Customer.FirstName" class="control-label"></label>
+                        <input asp-for="Customer.FirstName" class="form-control" />
+                        <span asp-validation-for="Customer.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Customer.LastName" class="control-label"></label>
+                        <input asp-for="Customer.LastName" class="form-control" />
+                        <span asp-validation-for="Customer.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Customer.Email" class="control-label"></label>
+                        <input asp-for="Customer.Email" class="form-control" />
+                        <span asp-validation-for="Customer.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Customer.Password" class="control-label"></label>
+                        <input asp-for="Customer.Password" class="form-control" />
+                        <span asp-validation-for="Customer.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <a asp-page="List" asp-page-handler="@type">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-page="./Index">Back to List</a>
+        </div>
+    }
+    @if (action == "delete")
+    {
+        <h3>Are you sure you want to delete this?</h3>
+        <div>
+            <h4>Customer</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Customer.FirstName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Customer.FirstName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Customer.LastName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Customer.LastName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Customer.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Customer.Email)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Customer.Password)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Customer.Password)
+                </dd>
+            </dl>
+
+            <form method="post">
+                <input type="hidden" asp-for="Customer.CustomerId" />
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                <a asp-page="List" asp-page-handler="@type">Back to List</a>
+            </form>
+        </div>
+    }
+}
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

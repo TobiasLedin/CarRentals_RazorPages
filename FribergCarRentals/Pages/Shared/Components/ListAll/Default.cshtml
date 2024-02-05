@@ -1,0 +1,245 @@
+﻿@using FribergCarRentals.ViewModels
+@model ListAllVM;
+    
+@{
+    var type = (string)ViewData["type"];
+    var user = (string)ViewData["user"];
+}
+
+@if (type == "Vehicle")
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Image
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Vehicles[0].Model)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Vehicles[0].Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Vehicles[0].Comment)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Vehicles)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 100px; max-height: 100px; width: auto; height: auto;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </td>
+                    <td>
+                        @if (user == "admin")
+                        {
+                            <a asp-page="Overview" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId" asp-route-action="edit">Edit</a>
+                            <a asp-page="Change" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId" asp-route-action="edit">Edit</a>
+                            <a asp-page="Change" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId" asp-route-action="delete">Delete</a>
+                        }
+                        @if (user == "customer")
+                        {
+                            <a asp-page="Details" asp-route-id="@item.VehicleId">Details</a>
+                            <a asp-page="Create" asp-route-BookingData.VehicleId="@item.VehicleId">Book</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if(type == "Booking")
+{
+    <h2>Upcoming bookings</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].BookingId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].BookingStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].BookingEnd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].Vehicle)
+                </th>
+                @if (user == "admin")
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.Bookings[0].Customer)
+                    </th>
+                }
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Bookings.Where(x => x.BookingStart >= DateTime.Now))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingEnd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Vehicle)
+                    </td>
+                    @if (user == "admin")
+                    {
+                        <td>
+                            @Html.DisplayNameFor(model => model.Bookings[0].Customer)
+                        </td>
+                    }
+                    <td>
+                        <a asp-page="/Details" asp-route-id="@item.BookingId">Details</a> |
+                        <a asp-page="Edit" asp-page-handler="Booking" asp-route-id="@item.BookingId" asp-route-action="delete">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (!Model.Bookings.Where(x => x.BookingStart > DateTime.Now).Any())    //TODO: Fixa !
+    {
+        <span>There are no upcoming bookings</span>
+    }
+
+    <h2>Historical bookings</h2>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].BookingId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].BookingStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].BookingEnd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].Vehicle)
+                </th>
+                @if (user == "admin")
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.Bookings[0].Customer)
+                    </th>
+                }
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Bookings.Where(x => x.BookingStart < DateTime.Now))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingEnd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Vehicle)
+                    </td>
+                    @if (user == "admin")
+                    {
+                        <td>
+                            @Html.DisplayNameFor(model => model.Bookings[0].Customer)
+                        </td>
+                    }
+                    <td>
+                        <a asp-page="/Details" asp-route-id="@item.BookingId">Details</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (!Model.Bookings.Where(x => x.BookingStart < DateTime.Now).Any())    //TODO: Fixa !
+    {
+        <span>There are no historical bookings</span>
+    }
+}
+
+@if (type == "Customer")
+{
+    <h2>Customers</h2>
+    <p>
+        <a asp-page="Create" asp-page-handler="Customer">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Customers[0].FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Customers[0].LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Customers[0].Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Customers[0].Password)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Customers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        <a asp-page="Edit" asp-page-handler="Customer" asp-route-id="@item.CustomerId" asp-route-action="edit">Edit</a> |
+                        <a asp-page="/Details" asp-route-id="@item.CustomerId">Details</a> |
+                        <a asp-page="Edit" asp-page-handler="Customer" asp-route-id="@item.CustomerId" asp-route-action="delete">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

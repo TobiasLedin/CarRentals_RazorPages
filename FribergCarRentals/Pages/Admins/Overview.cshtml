@@ -1,0 +1,23 @@
+﻿@page
+@model OverviewModel
+@{
+    ViewData["Title"] = "Overview";
+    var type = (string)ViewData["type"];
+    if (type == "NoAdmin")
+    {
+        ViewData["navbar"] = "login";
+    }
+}
+
+@if (type == "Admin")
+{
+    <h2>Admin overview</h2>
+    <p>Logged in with Admin ID: <b>@HttpContext.Session.GetInt32("_admin")</b></p>
+
+}
+
+@if (type == "NoAdmin")
+{
+    <h3>No admin logged in / session expired!</h3>
+    <a asp-page="Login" class="nav-link">Return to Login</a>
+}
