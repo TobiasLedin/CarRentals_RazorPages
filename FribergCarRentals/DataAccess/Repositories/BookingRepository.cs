@@ -1,6 +1,7 @@
 ﻿using FribergCarRentals.DataAccess.Database_Contexts;
 using FribergCarRentals.DataAccess.Interfaces;
 using FribergCarRentals.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FribergCarRentals.DataAccess.Repositories
 {
@@ -52,7 +53,7 @@ namespace FribergCarRentals.DataAccess.Repositories
                 }
                 else
                 {
-                    bookings = _applicationDbContext.Bookings.ToList();
+                    bookings = _applicationDbContext.Bookings.Include(x => x.Customer).Include(x => x.Vehicle).ToList();
                 }
                 return bookings;
             }
@@ -70,7 +71,7 @@ namespace FribergCarRentals.DataAccess.Repositories
             }
             else
             {
-                var booking = _applicationDbContext.Bookings.FirstOrDefault(z => z.BookingId == id); // TODO: Fix include ( Include(x => x.Vehicle).Include(y => y.Customer) )
+                var booking = _applicationDbContext.Bookings.Include(x => x.Customer).Include(x => x.Vehicle).FirstOrDefault(z => z.BookingId == id); // TODO: Fix include ( Include(x => x.Vehicle).Include(y => y.Customer) )
                 return booking;
             }
         }

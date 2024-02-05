@@ -12,6 +12,8 @@ namespace FribergCarRentals.Pages
             _logger = logger;
         }
 
+        public string UserType { get; set; } = default!;
+
         public void OnGet()
         {
 

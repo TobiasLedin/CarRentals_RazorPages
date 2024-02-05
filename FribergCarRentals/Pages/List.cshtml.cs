@@ -1,57 +1,67 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FribergCarRentals.Pages.AdminPages
+namespace FribergCarRentals.Pages
 {
     public class ListModel : PageModel
     {
-        [BindProperty]
-        public int VehicleId { get; set; }
+        public string Type { get; set; } = default!;
+        public string UserType { get; set; } = default!;
 
-        [BindProperty]
-        public string Action { get; set; }
+
 
         public void OnGetVehicles()
         {
-            if (!HttpContext.Session.TryGetValue("_admin", out _))
+            Type = "Vehicle";
+
+            if(HttpContext.Session.TryGetValue("_admin", out _))
             {
-                ViewData["type"] = "NoAdmin";
+                UserType = "admin";
+            }
+            else if (HttpContext.Session.TryGetValue("_customer", out _))
+            {
+                UserType = "customer";
             }
             else
             {
-                ViewData["type"] = "Vehicle";
+                UserType = "visitor";
             }
         }
 
         public void OnGetCustomers()
         {
-            if (!HttpContext.Session.TryGetValue("_admin", out _))
+            Type = "Customer";
+
+            if (HttpContext.Session.TryGetValue("_admin", out _))
             {
-                ViewData["type"] = "NoAdmin";
+                UserType = "admin";
+            }
+            else if (HttpContext.Session.TryGetValue("_customer", out _))
+            {
+                UserType = "customer";
             }
             else
             {
-                ViewData["type"] = "Customer";
+                UserType = "visitor";
             }
         }
 
         public void OnGetBookings()
         {
-            if (!HttpContext.Session.TryGetValue("_admin", out _))
+            Type = "Booking";
+
+            if (HttpContext.Session.TryGetValue("_admin", out _))
             {
-                ViewData["type"] = "NoAdmin";
+                UserType = "admin";
+            }
+            else if (HttpContext.Session.TryGetValue("_customer", out _))
+            {
+                UserType = "customer";
             }
             else
             {
-                ViewData["type"] = "Booking";
+                UserType = "visitor";
             }
         }
-
-        public void OnPost()
-        {
-            var id = VehicleId;
-            var action = Action;
-        }
-        
     }
 }

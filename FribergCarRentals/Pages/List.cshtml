@@ -1,22 +1,11 @@
 ﻿@page
 @using FribergCarRentals.Components
-@model FribergCarRentals.Pages.AdminPages.ListModel
+@model ListModel
 
 @{
-    var type = (string)ViewData["type"];
-    ViewData["Title"] = (string?)type;
+    var type = Model.Type;
+    var user = Model.UserType;
+    ViewData["Title"] = Model.Type;
 }
 
-@if (type != "NoAdmin")
-{
-    @await Component.InvokeAsync(nameof(ListAll), new { type = type, user = "admin" })
-}
-
-
-
-
-@if (type == "NoAdmin") // TODO: Neccessary?
-{
-    <h2>No admin logged in / session expired!</h2>
-    <a asp-page="Login" class="nav-link">Return to Login</a>
-}
+    @await Component.InvokeAsync(nameof(ListAll), new { type = type, user = user })

@@ -1,11 +1,12 @@
 ﻿@page
 @model FribergCarRentals.Pages.Customers.LoginModel
 @{
+    var action = Model.LoginData.Action;
     ViewData["Title"] = "Login";
     ViewData["navbar"] = "login";
 }
 
-@if ((string?)action == "login")
+@if (action == "login")
 {
     <h2>Customer login</h2>
 
@@ -21,14 +22,14 @@
             <form asp-page-handler="Login">
 
                 <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <label asp-for="LoginData.Email" class="control-label"></label>
+                    <input asp-for="LoginData.Email" class="form-control" />
+                    <span asp-validation-for="LoginData.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <label asp-for="LoginData.Password" class="control-label"></label>
+                    <input asp-for="LoginData.Password" class="form-control" />
+                    <span asp-validation-for="LoginData.Password" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
@@ -49,27 +50,27 @@
             <form asp-page-handler="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="@Model.Customer.FirstName" class="control-label"></label>
-                    <input asp-for="@Model.Customer.FirstName" class="form-control" />
-                    <span asp-validation-for="@Model.Customer.FirstName" class="text-danger"></span>
+                    <label asp-for="@Model.LoginData.Customer.FirstName" class="control-label"></label>
+                    <input asp-for="@Model.LoginData.Customer.FirstName" class="form-control" />
+                    <span asp-validation-for="@Model.LoginData.Customer.FirstName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="@Model.Customer.LastName" class="control-label"></label>
-                    <input asp-for="@Model.Customer.LastName" class="form-control" />
-                    <span asp-validation-for="@Model.Customer.LastName" class="text-danger"></span>
+                    <label asp-for="@Model.LoginData.Customer.LastName" class="control-label"></label>
+                    <input asp-for="@Model.LoginData.Customer.LastName" class="form-control" />
+                    <span asp-validation-for="@Model.LoginData.Customer.LastName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="@Model.Customer.Email" class="control-label"></label>
-                    <input asp-for="@Model.Customer.Email" class="form-control" />
-                    <span asp-validation-for="@Model.Customer.Email" class="text-danger"></span>
+                    <label asp-for="@Model.LoginData.Customer.Email" class="control-label"></label>
+                    <input asp-for="@Model.LoginData.Customer.Email" class="form-control" />
+                    <span asp-validation-for="@Model.LoginData.Customer.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="@Model.Customer.Password" class="control-label"></label>
-                    <input asp-for="@Model.Customer.Password" class="form-control" />
-                    <span asp-validation-for="@Model.Customer.Password" class="text-danger"></span>
+                    <label asp-for="@Model.LoginData.Customer.Password" class="control-label"></label>
+                    <input asp-for="@Model.LoginData.Customer.Password" class="form-control" />
+                    <span asp-validation-for="@Model.LoginData.Customer.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Create" asp-page-handler="Create" class="btn btn-primary" />
                 </div>
             </form>
         </div>
@@ -80,7 +81,7 @@
     </div>
 }
 
-@if ((string?)action == "logout")
+@if (action == "logout")
 {
     <div class="text-center">
         <h3>You are now logged out.</h3>

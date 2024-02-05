@@ -1,0 +1,62 @@
+﻿@model FribergCarRentals.ViewModels.NavBarVM
+    
+@{
+    var navbar = Model.UserType;
+
+}
+
+<nav class="navbar">
+    <ul class="navbar-nav">
+        
+        @if (navbar == "visitor")
+        {
+            <li class="nav-item push-lh">
+                <a class="nav-link" asp-page="Index">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-page="List" asp-page-handler="Vehicles">Vehicles</a>
+            </li>
+            <li class="nav-item push-rh">
+                <a class="nav-link" asp-page="/Customers/Login">Login</a>
+            </li>
+        }
+
+        @if (navbar == "customer")
+        {
+            <li class="nav-item push-lh">
+                <a class="nav-link" asp-page="List" asp-page-handler="Vehicles">Vehicles</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-page="List" asp-page-handler="Bookings">Bookings</a>
+            </li>
+
+            <li class="nav-item push-rh">
+                <a class="nav-link" asp-page="/Customers/Login" asp-page-handler="Logout">Logout</a>
+            </li>
+        }
+
+        @if (navbar == "admin")
+        {
+            <li class="nav-item push-lh">
+                <a class="nav-link" asp-page="/Admins/Overview">Overview</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-page="/List" asp-page-handler="Vehicles">Vehicles</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-page="/List" asp-page-handler="Bookings">Bookings</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-page="/List" asp-page-handler="Customers">Customers</a>
+            </li>
+
+            <li class="nav-item push-rh">
+                <a class="nav-link" asp-page="/Admins/Login" asp-page-handler="Logout">Logout</a>
+            </li>
+        }
+
+    </ul>
+</nav>

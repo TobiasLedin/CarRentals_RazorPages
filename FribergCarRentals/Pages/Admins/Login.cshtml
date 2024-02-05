@@ -3,8 +3,7 @@
 @{
     ViewData["Title"] = "Login";
     ViewData["navbar"] = "login";
-    var action = (string)ViewData["action"];
-
+    var action = Model.LoginData.Action;
 }
 
 @if (action == "login")

@@ -21,7 +21,7 @@ namespace FribergCarRentals.Models
 
         public override string? ToString()
         {
-            return $"{Brand} {Model} -{Year}";
+            return $"{Brand} {Model}";
         }
     }
 }

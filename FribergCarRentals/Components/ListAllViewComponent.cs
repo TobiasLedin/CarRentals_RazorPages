@@ -28,18 +28,19 @@ namespace FribergCarRentals.Components
         {
             if (type == "Vehicle")
             {
-                Lists.Vehicles = _vehicleRepo.GetAll().ToList();
+                Lists.Vehicles = _vehicleRepo.GetAll();
             }
             else if (type == "Booking")
             {
-                Lists.Bookings = _bookingRepo.GetAll().ToList(); // TODO: Null return problem när VehicleId tagits bort!
+                Lists.Bookings = _bookingRepo.GetAll(); // TODO: Null return problem när VehicleId tagits bort!
             }
             else if (type == "Customer")
             {
-                Lists.Customers = _customerRepo.GetAll().ToList();
+                Lists.Customers = _customerRepo.GetAll();
             }
-            ViewData["type"] = type;
-            ViewData["user"] = user;
+
+            Lists.Type = type;
+            Lists.User = user;
             return View(Lists);
 
         }

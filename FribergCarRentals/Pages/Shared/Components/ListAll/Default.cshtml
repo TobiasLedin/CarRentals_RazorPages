@@ -2,8 +2,8 @@
 @model ListAllVM;
     
 @{
-    var type = (string)ViewData["type"];
-    var user = (string)ViewData["user"];
+    var type = Model.Type;
+    var user = Model.User;
 }
 
 @if (type == "Vehicle")
@@ -51,11 +51,10 @@
                     <td>
                         @if (user == "admin")
                         {
-                            <a asp-page="Overview" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId" asp-route-action="edit">Edit</a>
-                            <a asp-page="Change" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId" asp-route-action="edit">Edit</a>
+                            <a asp-page="Edit" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId" asp-route-action="edit">Edit</a>
                             <a asp-page="Change" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId" asp-route-action="delete">Delete</a>
                         }
-                        @if (user == "customer")
+                        @if (user == "customer" || user == "visitor")
                         {
                             <a asp-page="Details" asp-route-id="@item.VehicleId">Details</a>
                             <a asp-page="Create" asp-route-BookingData.VehicleId="@item.VehicleId">Book</a>
@@ -84,12 +83,12 @@
                     @Html.DisplayNameFor(model => model.Bookings[0].BookingEnd)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].Vehicle)
+                    Vehicle
                 </th>
                 @if (user == "admin")
                 {
                     <th>
-                        @Html.DisplayNameFor(model => model.Bookings[0].Customer)
+                        @Html.DisplayNameFor(model => model.Bookings[0].CustomerId)
                     </th>
                 }
                 <th></th>
@@ -108,17 +107,38 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.BookingEnd)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Vehicle)
-                    </td>
-                    @if (user == "admin")
+
+                    @if (item.Vehicle != null)
                     {
                         <td>
-                            @Html.DisplayNameFor(model => model.Bookings[0].Customer)
+                            @Html.DisplayFor(modelItem => item.Vehicle.Brand) @Html.DisplayFor(modelItem => item.Vehicle.Model)
                         </td>
                     }
+                    @if (item.Vehicle == null)
+                    {
+                        <td>
+                            Deleted
+                        </td>
+                    }
+
+                    @if (user == "admin")
+                    {
+                        
+                        @if (item.Customer != null)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CustomerId)
+                            </td>
+                        }
+                        @if(item.Customer == null)
+                        {
+                            <td>
+                                Deleted
+                            </td>
+                        }
+                        
+                    }
                     <td>
-                        <a asp-page="/Details" asp-route-id="@item.BookingId">Details</a> |
                         <a asp-page="Edit" asp-page-handler="Booking" asp-route-id="@item.BookingId" asp-route-action="delete">Delete</a>
                     </td>
                 </tr>
@@ -146,16 +166,17 @@
                     @Html.DisplayNameFor(model => model.Bookings[0].BookingEnd)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].Vehicle)
+                    Vehicle
                 </th>
                 @if (user == "admin")
                 {
                     <th>
-                        @Html.DisplayNameFor(model => model.Bookings[0].Customer)
+                        @Html.DisplayNameFor(model => model.Bookings[0].CustomerId)
                     </th>
                 }
                 <th></th>
             </tr>
+            
         </thead>
         <tbody>
             @foreach (var item in Model.Bookings.Where(x => x.BookingStart < DateTime.Now))
@@ -170,19 +191,40 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.BookingEnd)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Vehicle)
-                    </td>
-                    @if (user == "admin")
+
+                    @if (item.Vehicle != null)
                     {
                         <td>
-                            @Html.DisplayNameFor(model => model.Bookings[0].Customer)
+                            @Html.DisplayFor(modelItem => item.Vehicle.Brand) @Html.DisplayFor(modelItem => item.Vehicle.Model)
                         </td>
                     }
-                    <td>
-                        <a asp-page="/Details" asp-route-id="@item.BookingId">Details</a>
-                    </td>
+                    @if (item.Vehicle == null)
+                    {
+                        <td>
+                            Deleted
+                        </td>
+                    }
 
+                    @if (user == "admin")
+                    {
+
+                        @if (item.Customer != null)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CustomerId)
+                            </td>
+                        }
+                        @if (item.Customer == null)
+                        {
+                            <td>
+                                Deleted
+                            </td>
+                        }
+
+                    }
+                    <td>
+                        <a asp-page="Edit" asp-page-handler="Booking" asp-route-id="@item.BookingId" asp-route-action="delete">Delete</a>
+                    </td>
                 </tr>
             }
         </tbody>
