@@ -1,9 +1,9 @@
-﻿@using FribergCarRentals.ViewModels
-@model ListAllVM;
+﻿@page
+@model ListModel
 
 @{
-    var type = Model.Type;
-    var user = Model.User;
+    var type = Model.Lists.Type;
+    var user = Model.Lists.User;
 }
 
 @if (type == "vehicle")
@@ -19,25 +19,25 @@
                     Image
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
+                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Brand)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].Model)
+                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Model)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].Year)
+                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Year)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].DailyRate)
+                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].DailyRate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Vehicles[0].Comment)
+                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Comment)
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Vehicles)
+            @foreach (var item in Model.Lists.Vehicles)
             {
                 <tr>
                     <td>
@@ -86,19 +86,19 @@
                     ID
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].BookingStart)
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].BookingStart)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].BookingEnd)
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].BookingEnd)
                 </th>
                 <th>
                     Vehicle
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].DailyRate)
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].DailyRate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].TotalCost)
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].TotalCost)
                 </th>
                 @if (user == "admin")
                 {
@@ -110,7 +110,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Bookings.Where(x => x.BookingStart >= DateTime.Now))
+            @foreach (var item in Model.Lists.Bookings.Where(x => x.BookingStart >= DateTime.Now))
             {
                 <tr>
                     <td>
@@ -165,7 +165,7 @@
             }
         </tbody>
     </table>
-    @if (!Model.Bookings.Where(x => x.BookingStart > DateTime.Now).Any())    //TODO: Fixa !
+    @if (!Model.Lists.Bookings.Where(x => x.BookingStart > DateTime.Now).Any())    //TODO: Fixa !
     {
         <span>There are no upcoming bookings</span>
     }
@@ -179,19 +179,19 @@
                     ID
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].BookingStart)
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].BookingStart)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].BookingEnd)
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].BookingEnd)
                 </th>
                 <th>
                     <span>Vehicle</span>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].DailyRate)
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].DailyRate)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].TotalCost)
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].TotalCost)
                 </th>
 
                 @if (user == "admin")
@@ -205,7 +205,7 @@
 
         </thead>
         <tbody>
-            @foreach (var item in Model.Bookings.Where(x => x.BookingStart < DateTime.Now))
+            @foreach (var item in Model.Lists.Bookings.Where(x => x.BookingStart < DateTime.Now))
             {
                 <tr>
                     <td>
@@ -262,7 +262,7 @@
             }
         </tbody>
     </table>
-    @if (!Model.Bookings.Where(x => x.BookingStart < DateTime.Now).Any())    //TODO: Fixa !
+    @if (!Model.Lists.Bookings.Where(x => x.BookingStart < DateTime.Now).Any())    //TODO: Fixa !
     {
         <span>There are no historical bookings</span>
     }
@@ -281,19 +281,19 @@
                     ID
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Customers[0].FirstName)
+                    @Html.DisplayNameFor(model => model.Lists.Customers[0].FirstName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Customers[0].LastName)
+                    @Html.DisplayNameFor(model => model.Lists.Customers[0].LastName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Customers[0].Email)
+                    @Html.DisplayNameFor(model => model.Lists.Customers[0].Email)
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Customers)
+            @foreach (var item in Model.Lists.Customers)
             {
                 <tr>
                     <td>

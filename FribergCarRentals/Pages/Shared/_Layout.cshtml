@@ -21,9 +21,9 @@
                     <img src="/logo-img.png" class="logo-img">
                 </div>
                 <div class="container-nav">
-                    
-                        @await Component.InvokeAsync(nameof(NavBar), new { NoDisplay = ViewData["NavBar"]})
 
+                        @await Component.InvokeAsync(nameof(NavBar), new { NoDisplay = ViewData["NavBar"]})
+                    
                 </div>
             </header>
 
