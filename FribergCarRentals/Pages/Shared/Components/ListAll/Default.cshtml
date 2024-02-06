@@ -8,8 +8,10 @@
 
 @if (type == "Vehicle")
 {
-    <h2>Vehicles available for rental</h2>
-
+    <h2>Vehicles</h2>
+    <p>
+        <a asp-page="Create" asp-page-handler="Vehicle">Create new vehicle</a>
+    </p>
     <table class="table">
         <thead>
             <tr>
@@ -118,7 +120,7 @@
                     @if (item.Vehicle == null)
                     {
                         <td>
-                            Deleted
+                            Scrapped
                         </td>
                     }
 
@@ -133,7 +135,7 @@
                         @if (item.Customer == null)
                         {
                             <td>
-                                Deleted
+                                Removed
                             </td>
                         }
                     }

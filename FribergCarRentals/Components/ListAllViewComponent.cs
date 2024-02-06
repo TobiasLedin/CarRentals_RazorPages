@@ -32,7 +32,16 @@ namespace FribergCarRentals.Components
             }
             else if (type == "Booking")
             {
-                Lists.Bookings = _bookingRepo.GetAll(); // TODO: Null return problem när VehicleId tagits bort!
+                if (user == "admin")
+                {
+                    Lists.Bookings = _bookingRepo.GetAll();
+                }
+                else if (user == "customer")
+                {
+                    int customerId = (int)HttpContext.Session.GetInt32("_customer");
+                    Lists.Bookings = _bookingRepo.GetAllByCustomer(customerId);
+                }
+                
             }
             else if (type == "Customer")
             {

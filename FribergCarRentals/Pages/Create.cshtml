@@ -99,22 +99,23 @@
     <hr />
 
     @Model.Object.Vehicle
+
     <div class="row">
         <div class="col-md-4">
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Object.Booking.BookingStart" class="control-label"></label>
-                    <input asp-for="Object.Booking.BookingStart" class="form-control" />
+                    <input asp-for="Object.Booking.BookingStart" id="BookingStart" class="form-control" />
                     <span asp-validation-for="Object.Booking.BookingStart" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Object.Booking.BookingEnd" class="control-label"></label>
-                    <input asp-for="Object.Booking.BookingEnd" class="form-control" />
+                    <input asp-for="Object.Booking.BookingEnd" id="BookingEnd" class="form-control" />
                     <span asp-validation-for="Object.Booking.BookingEnd" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" value="@Model.Object.Vehicle.VehicleId" asp-for="Object.VehicleId" />
+                    <input type="hidden" value="@Model.Object.VehicleId" asp-for="Object.VehicleId" />
                     <input type="submit" value="Book" asp-page-handler="Booking" class="btn btn-primary" />
                 </div>
             </form>
@@ -130,4 +131,12 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script type="text/javascript">         // TODO:
+        $(function () {
+            $("#BookingStart, #BookingEnd").datepicker({
+                minDate: 0
+            });
+        });
+    </script>
+
 }

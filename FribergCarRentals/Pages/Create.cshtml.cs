@@ -99,6 +99,7 @@ namespace FribergCarRentals.Pages
             ModelState.Clear();
             if (!TryValidateModel(booking))
             {
+                Object.Type = "booking";
                 return Page();
             }
 

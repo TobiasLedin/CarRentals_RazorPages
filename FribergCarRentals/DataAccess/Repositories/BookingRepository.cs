@@ -63,6 +63,27 @@ namespace FribergCarRentals.DataAccess.Repositories
             }
         }
 
+        public List<Booking> GetAllByCustomer(int id)
+        {
+            List<Booking> bookings;
+            try
+            {
+                if (!_applicationDbContext.Bookings.Any())
+                {
+                    bookings = Enumerable.Empty<Booking>().ToList();
+                }
+                else
+                {
+                    bookings = _applicationDbContext.Bookings.Where(x => x.CustomerId == id).Include(x => x.Customer).Include(x => x.Vehicle).OrderBy(x => x.BookingStart).ToList();
+                }
+                return bookings;
+            }
+            catch (Exception)
+            {
+                return null;    //TODO: Null-return
+            }
+        }
+
         public Booking GetById(int id)
         {
             if (!_applicationDbContext.Bookings.Any())

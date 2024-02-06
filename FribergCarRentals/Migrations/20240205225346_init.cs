@@ -66,8 +66,8 @@ namespace FribergCarRentals.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookingStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BookingEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    VehicleId = table.Column<int>(type: "int", nullable: false)
+                    CustomerId = table.Column<int>(type: "int", nullable: true),
+                    VehicleId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

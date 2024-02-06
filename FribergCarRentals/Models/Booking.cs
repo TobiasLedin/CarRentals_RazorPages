@@ -14,20 +14,20 @@ namespace FribergCarRentals.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayName("Pickup date")]
+        [FutureDate(ErrorMessage = "Pick date cannot be in the past")]
         public DateTime BookingStart { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         [DisplayName("Return date")]
+        [FutureDate(ErrorMessage = "Return date cannot be in the past")]
         public DateTime BookingEnd { get; set; }
 
-        [Required]
         [DisplayName("Customer ID")]
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
 
-        [Required]
         [DisplayName("Vehicle ID")]
-        public int VehicleId { get; set; }
+        public int? VehicleId { get; set; }
         
         [ForeignKey("CustomerId")]
         [DeleteBehavior(DeleteBehavior.SetNull)]
@@ -37,5 +37,18 @@ namespace FribergCarRentals.Models
         [DeleteBehavior(DeleteBehavior.SetNull)]
         public Vehicle Vehicle { get; set; }
 
+    }
+
+    public class FutureDateAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            return value is DateTime dateTime && dateTime >= DateTime.Today;
+        }
+
+        public override string FormatErrorMessage(string name)
+        {
+            return "The date for " + name + " must be in the future.";
+        }
     }
 }
