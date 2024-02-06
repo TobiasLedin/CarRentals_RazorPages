@@ -41,9 +41,9 @@ namespace FribergCarRentals.Pages.Admins
             LoginData.Admin = _adminRepo.GetByEmail(LoginData.Email);
             if (LoginData.Admin != null && LoginData.Admin.Password == LoginData.Password)
             {
-                HttpContext.Session.SetInt32(sessionAdmin, LoginData.Admin.AdminId);
+                HttpContext.Session.SetInt32(sessionAdmin, LoginData.Admin.AdminId);    // Session state (Key: "_admin", Value: AdminId)
 
-                if(HttpContext.Session.TryGetValue("_customer", out _))     // Close customer session if avail.
+                if (HttpContext.Session.TryGetValue("_customer", out _))     // Search and close customer session if present.
                 {
                     HttpContext.Session.Remove("_customer");
                 }

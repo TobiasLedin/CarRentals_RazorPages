@@ -6,8 +6,6 @@
     var type = Model.Object.Type;
 }
 
-<h1>Create</h1>
-
 @if (type == "customer")
 {
     <h4>Customer</h4>
@@ -103,8 +101,11 @@
     <h4>Booking</h4>
     <hr />
 
-    @Model.Object.Vehicle
-
+    <span>Vehicle: @Model.Object.Vehicle</span>
+    <br />
+    <span>Daily rate: @Model.Object.Vehicle.DailyRate SEK</span>
+    <br />
+    
     <div class="row">
         <div class="col-md-4">
             <form method="post">

@@ -42,9 +42,9 @@ namespace FribergCarRentals.Pages.Customers
             LoginData.Customer = _customerRepo.GetByEmail(LoginData.Email);
             if (LoginData.Customer != null && LoginData.Customer.Password == LoginData.Password)
             {
-                HttpContext.Session.SetInt32(sessionCustomer, LoginData.Customer.CustomerId);   // Session state
+                HttpContext.Session.SetInt32(sessionCustomer, LoginData.Customer.CustomerId);   // Session state (Key: "_customer", Value: CustomerId)
 
-                if (HttpContext.Session.TryGetValue("_admin", out _))     // Close admin session if avail.
+                if (HttpContext.Session.TryGetValue("_admin", out _))     // Search and close admin session if present.
                 {
                     HttpContext.Session.Remove("_admin");
                 }
@@ -80,7 +80,8 @@ namespace FribergCarRentals.Pages.Customers
 
                 return RedirectToPage("Overview");
             }
-            
+
+            LoginData.Action = "login";
             return Page();
         }
     }
