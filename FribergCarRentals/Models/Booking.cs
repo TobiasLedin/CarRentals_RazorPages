@@ -29,15 +29,30 @@ namespace FribergCarRentals.Models
 
         [DisplayName("Vehicle ID")]
         public int? VehicleId { get; set; }
-        
+
+        [Required]
+        [DisplayName("Daily rate")]
+        public int DailyRate { get; set; }
+
+        [DisplayName("Total")]
+        public int TotalCost
+        {
+            get
+            {
+                int days = (int)(BookingEnd - BookingStart).TotalDays + 1;
+                int totalCost = days * DailyRate;
+
+                return totalCost;
+            }
+        }
+
         [ForeignKey("CustomerId")]
         [DeleteBehavior(DeleteBehavior.SetNull)]
         public Customer Customer { get; set; }
-        
+
         [ForeignKey("VehicleId")]
         [DeleteBehavior(DeleteBehavior.SetNull)]
         public Vehicle Vehicle { get; set; }
 
-        // TODO: Lägg till "TotalSum"
     }
 }

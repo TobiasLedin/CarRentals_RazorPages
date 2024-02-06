@@ -22,7 +22,7 @@ namespace FribergCarRentals.Pages
 
         [BindProperty(SupportsGet = true)]
         public CreateVM Object { get; set; }
-      
+
 
         public IActionResult OnGetCustomer()
         {
@@ -38,13 +38,13 @@ namespace FribergCarRentals.Pages
 
         public IActionResult OnGetBooking()
         {
-            if(!HttpContext.Session.TryGetValue("_customer", out _))    // Check if a customer i logged in. If not, save vehicleId in session and redirect to Login page.
+            if (!HttpContext.Session.TryGetValue("_customer", out _))    // Check if a customer i logged in. If not, save vehicleId in session and redirect to Login page.
             {
                 HttpContext.Session.SetInt32("_vehicleId", Object.VehicleId);
                 return RedirectToPage("/Customers/Login");
             }
-            
-            if(HttpContext.Session.TryGetValue("_vehicleId", out _))    // If a vehicleId is present in session, use this for the booking then erase from session.
+
+            if (HttpContext.Session.TryGetValue("_vehicleId", out _))    // If a vehicleId is present in session, use this for the booking then erase from session.
             {
                 Object.VehicleId = (int)HttpContext.Session.GetInt32("_vehicleId");
                 HttpContext.Session.Remove("_vehicleId");
@@ -83,15 +83,18 @@ namespace FribergCarRentals.Pages
 
         public IActionResult OnPostBooking()
         {
-            int customerId = (int)HttpContext.Session.GetInt32("_customer");
+            int customerId = (int)HttpContext.Session.GetInt32("_customer");        // FELSÖK BEKRÄFTELSE SOM KOMMER TILLBAKA BLANK
             var customer = _customerRepo.GetById(customerId);
+            int vehicleId = Object.VehicleId;
+            var vehicle = _vehicleRepo.GetById(Object.VehicleId);
 
             Booking booking = new()
             {
                 CustomerId = customerId,
                 Customer = customer,
-                VehicleId = Object.VehicleId,
-                Vehicle = _vehicleRepo.GetById(Object.VehicleId),
+                VehicleId = vehicleId,
+                Vehicle = vehicle,
+                DailyRate = vehicle.DailyRate,
                 BookingStart = Object.Booking.BookingStart,
                 BookingEnd = Object.Booking.BookingEnd
             };
@@ -103,9 +106,11 @@ namespace FribergCarRentals.Pages
                 return Page();
             }
 
-            _bookingRepo.Create(booking);
+            var bookingId = _bookingRepo.Create(booking);
+            Object.Booking = _bookingRepo.GetById(bookingId);   //Write booking to VM for presentation in confirmation.
 
-            return RedirectToPage("List", "Bookings");
+            Object.Type = "confirmation";
+            return Page();
         }
     }
 }

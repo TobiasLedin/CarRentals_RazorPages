@@ -42,7 +42,7 @@
     </div>
 
     <div>
-        <a asp-page="Index">Back to List</a>
+        <a asp-page="List" asp-page-handler="Customers">Back to List</a>
     </div>
 }
 
@@ -92,7 +92,7 @@
     </div>
 
     <div>
-        <a asp-page="Index">Back to List</a>
+        <a asp-page="List" asp-page-handler="Vehicle">Back to List</a>
     </div>
 }
 
@@ -105,7 +105,7 @@
     <br />
     <span>Daily rate: @Model.Object.Vehicle.DailyRate SEK</span>
     <br />
-    
+
     <div class="row">
         <div class="col-md-4">
             <form method="post">
@@ -129,7 +129,67 @@
     </div>
 
     <div>
-        <a asp-page="Index">Back to List</a>
+        <a asp-page="List" asp-page-handler="Vehicles">Back to List</a>
+    </div>
+}
+
+@if (type == "confirmation")
+{
+    <h2>Booking confirmation</h2>
+    <hr />
+    <h4>Your booking has successfully been created!</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Object.Booking.BookingStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Object.Booking.BookingEnd)
+                </th>
+                <th>
+                    Vehicle
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Object.Booking.DailyRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Object.Booking.TotalCost)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Object.Booking.BookingId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Object.Booking.BookingStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Object.Booking.BookingEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Object.Booking.Vehicle.Brand)
+                    @Html.DisplayFor(model => model.Object.Booking.Vehicle.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Object.Booking.DailyRate) SEK
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Object.Booking.TotalCost) SEK
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <br />
+    <div>
+        <a asp-page="/Customers/Overview">Close</a>
     </div>
 }
 
@@ -139,8 +199,8 @@
     }
     <script>
 
-        // NoPastDateAttribute client-side validation.
-        // Forbids user to select a BookingStart date that is less than DateTime.Now.Date.
+        // Add custom jQuery validation method (NoPastDateAttribute) for server-side validation.
+        // Restricts user to select a BookingStart date that is less than DateTime.Now.Date.
         jQuery.validator.addMethod('nopastdate', function (value, element) {
             var currentDate = new Date().setHours(0, 0, 0, 0);
             var inputDate = new Date(value).setHours(0, 0, 0, 0);
@@ -149,8 +209,8 @@
 
         jQuery.validator.unobtrusive.adapters.addBool('nopastdate');
 
-        // EqualOrGreaterAttribute client-side validation.
-        // Forbids user to select a BookingEnd date that is less than BookingStart date.
+        // Add custom jQuery validation method (EqualOrGreater) for server-side validation.
+        // Restricts user to select a BookingEnd date that is less than BookingStart date.
         jQuery.validator.addMethod('equalorgreater', function (value, element, params) {
             var bookingStart = new Date($(params).val());
             var bookingEnd = new Date(value);
@@ -162,7 +222,7 @@
             options.messages['equalorgreater'] = options.message;
         });
 
-        // Re-evaluate field data after changes are made.
+        // Re-evaluate input field data after changes are made.
         $('#BookingStart, #BookingEnd').change(function () {
             $(this).valid();
         });

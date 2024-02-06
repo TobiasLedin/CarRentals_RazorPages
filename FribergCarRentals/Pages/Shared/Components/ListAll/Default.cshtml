@@ -53,7 +53,7 @@
                         @Html.DisplayFor(modelItem => item.Year)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DailyRate)
+                        @Html.DisplayFor(modelItem => item.DailyRate) SEK
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Comment)
@@ -94,6 +94,12 @@
                 <th>
                     Vehicle
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].DailyRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].TotalCost)
+                </th>
                 @if (user == "admin")
                 {
                     <th>
@@ -129,6 +135,13 @@
                             Scrapped
                         </td>
                     }
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DailyRate) SEK
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalCost) SEK
+                    </td>
 
                     @if (user == "admin")
                     {
@@ -174,6 +187,13 @@
                 <th>
                     <span>Vehicle</span>
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].DailyRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bookings[0].TotalCost)
+                </th>
+
                 @if (user == "admin")
                 {
                     <th>
@@ -207,9 +227,16 @@
                     @if (item.Vehicle == null)
                     {
                         <td>
-                            Deleted
+                            Scrapped
                         </td>
                     }
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DailyRate) SEK
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalCost) SEK
+                    </td>
 
                     @if (user == "admin")
                     {
@@ -262,7 +289,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Customers[0].Email)
                 </th>
-                
                 <th></th>
             </tr>
         </thead>
@@ -282,7 +308,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
-                    
+
                     <td>
                         <a asp-page="Edit" asp-page-handler="Customer" asp-route-id="@item.CustomerId">Edit</a> |
                         <a asp-page="Delete" asp-page-handler="Customer" asp-route-id="@item.CustomerId">Delete</a>

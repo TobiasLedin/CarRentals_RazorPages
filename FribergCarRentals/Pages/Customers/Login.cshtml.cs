@@ -78,6 +78,16 @@ namespace FribergCarRentals.Pages.Customers
                 _customerRepo.Create(customer);
                 HttpContext.Session.SetInt32(sessionCustomer, customer.CustomerId);   // Session state
 
+                if (HttpContext.Session.TryGetValue("_admin", out _))     // Search and close admin session if present.
+                {
+                    HttpContext.Session.Remove("_admin");
+                }
+
+                if (HttpContext.Session.TryGetValue("_vehicleId", out _))
+                {
+                    return RedirectToPage("/Create", "Booking");
+                }
+
                 return RedirectToPage("Overview");
             }
 
