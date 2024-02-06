@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FribergCarRentals.Components
 {
     [ViewComponent]
-    public class ListAll : ViewComponent   // TODO: Ändra till "ListAll" efter felsökning?
+    public class ListAll : ViewComponent
     {
 
         private readonly IVehicleRepository _vehicleRepo;

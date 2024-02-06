@@ -83,7 +83,7 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].BookingId)
+                    <span>ID</span>
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Bookings[0].BookingStart)
@@ -97,7 +97,7 @@
                 @if (user == "admin")
                 {
                     <th>
-                        @Html.DisplayNameFor(model => model.Bookings[0].CustomerId)
+                        <span>Customer</span>
                     </th>
                 }
                 <th></th>
@@ -135,7 +135,7 @@
                         @if (item.Customer != null)
                         {
                             <td>
-                                @Html.DisplayFor(modelItem => item.CustomerId)
+                                @Html.DisplayFor(modelItem => item.Customer.FirstName) @Html.DisplayFor(modelItem => item.Customer.LastName)
                             </td>
                         }
                         @if (item.Customer == null)
@@ -163,7 +163,7 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bookings[0].BookingId)
+                    <span>ID</span>
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Bookings[0].BookingStart)
@@ -177,7 +177,7 @@
                 @if (user == "admin")
                 {
                     <th>
-                        @Html.DisplayNameFor(model => model.Bookings[0].CustomerId)
+                        <span>Customer</span>
                     </th>
                 }
                 <th></th>
@@ -217,7 +217,7 @@
                         @if (item.Customer != null)
                         {
                             <td>
-                                @Html.DisplayFor(modelItem => item.CustomerId)
+                                @Html.DisplayFor(modelItem => item.Customer.FirstName) @Html.DisplayFor(modelItem => item.Customer.LastName)
                             </td>
                         }
                         @if (item.Customer == null)
@@ -251,6 +251,9 @@
         <thead>
             <tr>
                 <th>
+                    ID
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Customers[0].FirstName)
                 </th>
                 <th>
@@ -259,9 +262,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Customers[0].Email)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Customers[0].Password)
-                </th>
+                
                 <th></th>
             </tr>
         </thead>
@@ -269,6 +270,9 @@
             @foreach (var item in Model.Customers)
             {
                 <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustomerId)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.FirstName)
                     </td>
@@ -278,9 +282,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Password)
-                    </td>
+                    
                     <td>
                         <a asp-page="Edit" asp-page-handler="Customer" asp-route-id="@item.CustomerId">Edit</a> |
                         <a asp-page="Delete" asp-page-handler="Customer" asp-route-id="@item.CustomerId">Delete</a>

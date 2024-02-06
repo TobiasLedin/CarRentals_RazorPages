@@ -65,6 +65,7 @@ namespace FribergCarRentals.Pages.Customers
                 ViewData["Fail"] = "The email and password does not match!";
             }
 
+            LoginData.Action = "login";
             return Page();
         }
 

@@ -38,5 +38,6 @@ namespace FribergCarRentals.Models
         [DeleteBehavior(DeleteBehavior.SetNull)]
         public Vehicle Vehicle { get; set; }
 
+        // TODO: Lägg till "TotalSum"
     }
 }
