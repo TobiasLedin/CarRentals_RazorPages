@@ -83,7 +83,7 @@ namespace FribergCarRentals.Pages
 
         public IActionResult OnPostBooking()
         {
-            int customerId = (int)HttpContext.Session.GetInt32("_customer");        // FELSÖK BEKRÄFTELSE SOM KOMMER TILLBAKA BLANK
+            int customerId = (int)HttpContext.Session.GetInt32("_customer");
             var customer = _customerRepo.GetById(customerId);
             int vehicleId = Object.VehicleId;
             var vehicle = _vehicleRepo.GetById(Object.VehicleId);
