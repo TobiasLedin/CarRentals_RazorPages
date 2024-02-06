@@ -72,6 +72,11 @@
                     <span asp-validation-for="Object.Vehicle.Year" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="Object.Vehicle.DailyRate" class="control-label"></label>
+                    <input asp-for="Object.Vehicle.DailyRate" class="form-control" />
+                    <span asp-validation-for="Object.Vehicle.DailyRate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="Object.Vehicle.Comment" class="control-label"></label>
                     <input asp-for="Object.Vehicle.Comment" class="form-control" />
                     <span asp-validation-for="Object.Vehicle.Comment" class="text-danger"></span>
@@ -131,12 +136,35 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script type="text/javascript">         // TODO:
-        $(function () {
-            $("#BookingStart, #BookingEnd").datepicker({
-                minDate: 0
-            });
-        });
-    </script>
+    <script>
 
+        // NoPastDateAttribute client-side validation.
+        // Forbids user to select a BookingStart date that is less than DateTime.Now.Date.
+        jQuery.validator.addMethod('nopastdate', function (value, element) {
+            var currentDate = new Date().setHours(0, 0, 0, 0);
+            var inputDate = new Date(value).setHours(0, 0, 0, 0);
+            return this.optional(element) || inputDate >= currentDate;
+        }, 'Please enter a date in the future.');
+
+        jQuery.validator.unobtrusive.adapters.addBool('nopastdate');
+
+        // EqualOrGreaterAttribute client-side validation.
+        // Forbids user to select a BookingEnd date that is less than BookingStart date.
+        jQuery.validator.addMethod('equalorgreater', function (value, element, params) {
+            var bookingStart = new Date($(params).val());
+            var bookingEnd = new Date(value);
+            return this.optional(element) || bookingEnd >= bookingStart;
+        }, 'Return date cannot be less than Pickup date.');
+
+        jQuery.validator.unobtrusive.adapters.add('equalorgreater', ['bookingstart'], function (options) {
+            options.rules['equalorgreater'] = '#' + options.params['bookingstart'];
+            options.messages['equalorgreater'] = options.message;
+        });
+
+        // Re-evaluate field data after changes are made.
+        $('#BookingStart, #BookingEnd').change(function () {
+            $(this).valid();
+        });
+
+    </script>
 }

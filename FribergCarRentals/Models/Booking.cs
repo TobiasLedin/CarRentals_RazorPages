@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using FribergCarRentals.Attributes;
 
 namespace FribergCarRentals.Models
 {
@@ -14,13 +15,13 @@ namespace FribergCarRentals.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayName("Pickup date")]
-        [FutureDate(ErrorMessage = "Pick date cannot be in the past")]
+        [NoPastDate]
         public DateTime BookingStart { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         [DisplayName("Return date")]
-        [FutureDate(ErrorMessage = "Return date cannot be in the past")]
+        [EqualOrGreater("BookingStart")]
         public DateTime BookingEnd { get; set; }
 
         [DisplayName("Customer ID")]
@@ -37,18 +38,5 @@ namespace FribergCarRentals.Models
         [DeleteBehavior(DeleteBehavior.SetNull)]
         public Vehicle Vehicle { get; set; }
 
-    }
-
-    public class FutureDateAttribute : ValidationAttribute
-    {
-        public override bool IsValid(object value)
-        {
-            return value is DateTime dateTime && dateTime >= DateTime.Today;
-        }
-
-        public override string FormatErrorMessage(string name)
-        {
-            return "The date for " + name + " must be in the future.";
-        }
     }
 }
