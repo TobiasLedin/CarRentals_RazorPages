@@ -30,7 +30,7 @@ namespace FribergCarRentals.Pages.Admins
             var result = _auth.CheckAdminAuth();
             if (!result.Success)
             {
-                ViewData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 
@@ -44,7 +44,7 @@ namespace FribergCarRentals.Pages.Admins
             var result = _auth.CheckAdminAuth();
             if (!result.Success)
             {
-                ViewData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 
@@ -58,7 +58,7 @@ namespace FribergCarRentals.Pages.Admins
             var result = _auth.CheckAdminAuth();
             if (!result.Success)
             {
-                ViewData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 
@@ -67,8 +67,15 @@ namespace FribergCarRentals.Pages.Admins
             return Page();
         }
 
-        public IActionResult OnPostVehicle()        // TODO: Fixa auth for Post?
+        public IActionResult OnPostVehicle()
         {
+            var result = _auth.CheckAdminAuth();
+            if (!result.Success)
+            {
+                TempData["expired"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
             _vehicleRepo.Delete(Object.Vehicle.VehicleId);
 
             return RedirectToPage("List", "Vehicles");
@@ -76,6 +83,13 @@ namespace FribergCarRentals.Pages.Admins
 
         public IActionResult OnPostCustomer()
         {
+            var result = _auth.CheckAdminAuth();
+            if (!result.Success)
+            {
+                TempData["expired"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
             _customerRepo.Delete(Object.Customer.CustomerId);
 
             return RedirectToPage("List", "Customers");
@@ -83,6 +97,13 @@ namespace FribergCarRentals.Pages.Admins
 
         public IActionResult OnPostBooking()
         {
+            var result = _auth.CheckAdminAuth();
+            if (!result.Success)
+            {
+                TempData["expired"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
             _bookingRepo.Delete(Object.Booking.BookingId);
 
             return RedirectToPage("List", "Bookings");

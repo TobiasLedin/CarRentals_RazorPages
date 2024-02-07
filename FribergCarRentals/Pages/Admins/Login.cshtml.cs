@@ -21,9 +21,9 @@ namespace FribergCarRentals.Pages.Admins
 
         public IActionResult OnGet()
         {
-            if (TempData["fail"] != null)
+            if (TempData["expired"] != null)
             {
-                ViewData["fail"] = TempData["fail"].ToString();
+                ViewData["fail"] = TempData["expired"].ToString();
             }
 
             ViewData["NavBar"] = "NoDisplay";
@@ -47,11 +47,11 @@ namespace FribergCarRentals.Pages.Admins
             if (!result.Success)
             {
                 ViewData["fail"] = result.Message;
-                return RedirectToPage("/Admins/Login");         // FIXA FELMEDDELANDEN
+                LoginData.Action = "login";
+                return Page();
             }
 
-            LoginData.Action = "login";
-            return RedirectToPage("/Admins/Overview");
+            return RedirectToPage("Overview");
         }
     }
 }

@@ -26,7 +26,7 @@ namespace FribergCarRentals.Pages.Customers
             var result = _auth.CheckCustomerAuth();
             if (!result.Success)
             {
-                ViewData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 
@@ -36,6 +36,13 @@ namespace FribergCarRentals.Pages.Customers
 
         public IActionResult OnPostBooking()        // TODO: Fix auth onPost?
         {
+            var result = _auth.CheckCustomerAuth();
+            if (!result.Success)
+            {
+                TempData["expired"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
             _bookingRepo.Delete(Object.Booking.BookingId);
 
             return RedirectToPage("List", "Bookings");

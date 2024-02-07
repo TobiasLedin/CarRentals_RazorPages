@@ -3,7 +3,7 @@ using FribergCarRentals.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FribergCarRentals.Customers.Pages
+namespace FribergCarRentals.Pages.Customers
 {
     public class ListModel : PageModel
     {
@@ -36,11 +36,10 @@ namespace FribergCarRentals.Customers.Pages
             var result = _auth.CheckCustomerAuth();
             if (result.Success)
             {
-                int customerId = (int)HttpContext.Session.GetInt32("_customer");
-                Lists.Bookings = _bookingRepo.GetAllByCustomer(customerId);
+                Lists.Bookings = _bookingRepo.GetAllByCustomer(result.Id);
             }
 
-            Lists.Type = "customer";
+            Lists.Type = "booking";
             return Page();
         }
     }

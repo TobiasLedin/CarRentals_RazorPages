@@ -26,33 +26,26 @@ namespace FribergCarRentals.Pages.Customers
         public CreateVM Object { get; set; }
 
 
-        public IActionResult OnGetCustomer()
-        {
-            var result = _auth.CheckCustomerAuth();
-            if (!result.Success)
-            {
-                ViewData["fail"] = result.Message;
-                return RedirectToPage("Login");
-            }
-
-            Object.Type = "customer";
-            return Page();
-        }
-
         public IActionResult OnGetBooking()
         {
             var result = _auth.CheckCustomerAuth();
-
             if (!result.Success)
             {
-                HttpContext.Session.SetInt32("_vehicleId", Object.VehicleId);
-                return RedirectToPage("/Customers/Login");
+                if (Object.VehicleId != 0)
+                {
+                    HttpContext.Session.SetInt32("_vehicleId", Object.VehicleId);
+                }
+                
+                return RedirectToPage("Login");
             }
 
             if (result.Success)
             {
-                Object.VehicleId = (int)HttpContext.Session.GetInt32("_vehicleId");
-                HttpContext.Session.Remove("_vehicleId");
+                if (HttpContext.Session.TryGetValue("_vehicleId", out _))
+                {
+                    Object.VehicleId = (int)HttpContext.Session.GetInt32("_vehicleId");
+                    HttpContext.Session.Remove("_vehicleId");
+                }
             }
 
             Object.Vehicle = _vehicleRepo.GetById(Object.VehicleId);
@@ -60,22 +53,16 @@ namespace FribergCarRentals.Pages.Customers
             return Page();
         }
 
-        public IActionResult OnPostCustomer()       // TODO: Fixa auth for POST-metoder?
-        {
-            ModelState.Clear();
-            if (!TryValidateModel(Object.Customer))
-            {
-                return Page();
-            }
-
-            _customerRepo.Create(Object.Customer);
-
-            return RedirectToPage("List", "Customers");
-        }
-
         public IActionResult OnPostBooking()
         {
-            int customerId = (int)HttpContext.Session.GetInt32("_customer");
+            var result = _auth.CheckCustomerAuth();
+            if (!result.Success)
+            {
+                TempData["expired"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
+            int customerId = result.Id;
             var customer = _customerRepo.GetById(customerId);
             int vehicleId = Object.VehicleId;
             var vehicle = _vehicleRepo.GetById(Object.VehicleId);

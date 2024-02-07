@@ -28,7 +28,7 @@ namespace FribergCarRentals.Pages.Admins
             var result = _auth.CheckAdminAuth();
             if (!result.Success)
             {
-                ViewData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 
@@ -42,7 +42,7 @@ namespace FribergCarRentals.Pages.Admins
             var result = _auth.CheckAdminAuth();
             if (!result.Success)
             {
-                ViewData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 
@@ -51,8 +51,15 @@ namespace FribergCarRentals.Pages.Admins
             return Page();
         }
 
-        public IActionResult OnPostVehicle()    // TODO: Fixa auth for onPost?
+        public IActionResult OnPostVehicle()
         {
+            var result = _auth.CheckAdminAuth();
+            if (!result.Success)
+            {
+                TempData["expired"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
             ModelState.Clear();
             if (TryValidateModel(Object.Vehicle))
             {
@@ -64,6 +71,13 @@ namespace FribergCarRentals.Pages.Admins
 
         public IActionResult OnPostCustomer()
         {
+            var result = _auth.CheckAdminAuth();
+            if (!result.Success)
+            {
+                TempData["expired"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
             ModelState.Clear();
             if (TryValidateModel(Object.Customer))
             {

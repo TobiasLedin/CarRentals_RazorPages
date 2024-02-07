@@ -12,19 +12,20 @@ namespace FribergCarRentals
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            
             builder.Services.AddRazorPages();
 
-            // Local memory for session state
+            // Local memory for session state.
             builder.Services.AddMemoryCache();
 
-            // Session state functions
+            // Provides access to session data in pages.
             builder.Services.AddHttpContextAccessor();
 
+            // Adds session state service.
             builder.Services.AddSession(options =>
             {
                 options.Cookie.Name = "FribergCarRentals";
-                options.IdleTimeout = TimeSpan.FromSeconds(15);
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
                 options.Cookie.IsEssential = true;
                 options.Cookie.HttpOnly = true;
             });
@@ -36,14 +37,14 @@ namespace FribergCarRentals
             .Build()
             .GetConnectionString("DefaultConnection")));
 
-            // Repositories
+            // Repositories.
             builder.Services.AddTransient<IAdminRepository, AdminRepository>();
             builder.Services.AddTransient<IBookingRepository, BookingRepository>();
             builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
             builder.Services.AddTransient<IVehicleRepository, VehicleRepository>();
 
-            // Auth service
-            builder.Services.AddScoped<IAuthService, AuthService>();     // TODO: Utvärdera.
+            // Auth service.
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
             var app = builder.Build();
 
@@ -62,6 +63,7 @@ namespace FribergCarRentals
 
             app.UseAuthorization();
 
+            // Session state.
             app.UseSession();
 
             app.MapRazorPages();

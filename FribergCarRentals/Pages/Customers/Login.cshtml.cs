@@ -23,6 +23,11 @@ namespace FribergCarRentals.Pages.Customers
 
         public IActionResult OnGet()
         {
+            if (TempData["expired"] != null)
+            {
+                ViewData["fail"] = TempData["expired"].ToString();
+            }
+
             ViewData["NavBar"] = "NoDisplay";
             LoginData.Action = "login";
 
@@ -44,40 +49,47 @@ namespace FribergCarRentals.Pages.Customers
             if (!result.Success)
             {
                 ViewData["fail"] = result.Message;
-                return RedirectToPage("/Customers/Login");
+                LoginData.Action = "login";
+                return Page();
             }
 
             if (HttpContext.Session.TryGetValue("_vehicleId", out _))
             {
-                return RedirectToPage("/Create", "Booking");
+                return RedirectToPage("Create", "Booking");
             }
 
-            LoginData.Action = "login";
-            return RedirectToPage("/Customers/Overview");
+            return RedirectToPage("Overview");
         }
 
         public IActionResult OnPostCreate()
         {
-            Customer customer = LoginData.Customer;
-            ModelState.Clear();
-            if (TryValidateModel(customer))
+            if (_customerRepo.GetByEmail(LoginData.Customer.Email) != null)
             {
-                _customerRepo.Create(customer);
-                HttpContext.Session.SetInt32("_customer", customer.CustomerId);
-
-                if (HttpContext.Session.TryGetValue("_admin", out _))
-                {
-                    HttpContext.Session.Remove("_admin");
-                }
-
-                if (HttpContext.Session.TryGetValue("_vehicleId", out _))
-                {
-                    return RedirectToPage("/Create", "Booking");
-                }
-
-                return RedirectToPage("/Customers/Overview");
+                ViewData["occupied"] = "The entered email adress is already registered";
             }
+            else
+            {
+                Customer customer = LoginData.Customer;
 
+                ModelState.Clear();
+                if (TryValidateModel(customer))
+                {
+                    _customerRepo.Create(customer);
+                    HttpContext.Session.SetInt32("_customer", customer.CustomerId);
+
+                    if (HttpContext.Session.TryGetValue("_admin", out _))
+                    {
+                        HttpContext.Session.Remove("_admin");
+                    }
+
+                    if (HttpContext.Session.TryGetValue("_vehicleId", out _))
+                    {
+                        return RedirectToPage("Create", "Booking");
+                    }
+
+                    return RedirectToPage("Overview");
+                }
+            }
             LoginData.Action = "login";
             return Page();
         }

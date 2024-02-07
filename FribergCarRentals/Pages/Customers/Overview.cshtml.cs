@@ -19,7 +19,7 @@ namespace FribergCarRentals.Pages.Customers
             var result = _auth.CheckCustomerAuth();
             if (!result.Success)
             {
-                ViewData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 

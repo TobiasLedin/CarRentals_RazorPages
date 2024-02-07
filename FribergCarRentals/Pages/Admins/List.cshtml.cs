@@ -31,7 +31,7 @@ namespace FribergCarRentals.Pages.Admins
             var result = _auth.CheckAdminAuth();
             if (!result.Success)
             {
-                ViewData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 
@@ -45,7 +45,7 @@ namespace FribergCarRentals.Pages.Admins
             var result = _auth.CheckAdminAuth();
             if (!result.Success)
             {
-                TempData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 
@@ -59,7 +59,7 @@ namespace FribergCarRentals.Pages.Admins
             var result = _auth.CheckAdminAuth();
             if (!result.Success)
             {
-                ViewData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 

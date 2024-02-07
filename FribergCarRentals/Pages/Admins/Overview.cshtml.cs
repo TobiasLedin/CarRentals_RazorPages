@@ -19,7 +19,7 @@ namespace FribergCarRentals.Pages.Admins
             var result = _auth.CheckAdminAuth();
             if (!result.Success)
             {
-                ViewData["fail"] = result.Message;
+                TempData["expired"] = result.Message;
                 return RedirectToPage("Login");
             }
 

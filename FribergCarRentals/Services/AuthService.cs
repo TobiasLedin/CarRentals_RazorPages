@@ -25,7 +25,7 @@ namespace FribergCarRentals.Services
             }
             else
             {
-                return new AuthResult { Success = false, Message = "Administrator session har expired" };
+                return new AuthResult { Success = false, Message = "Administrator session has expired!" };
             }
         }
 
@@ -33,11 +33,13 @@ namespace FribergCarRentals.Services
         {
             if (_session.HttpContext.Session.TryGetValue(_customer, out _))
             {
-                return new AuthResult { Success = true };
+                var id = (int)_session.HttpContext.Session.GetInt32(_customer);
+
+                return new AuthResult { Success = true, Id = id };
             }
             else
             {
-                return new AuthResult { Success = false };
+                return new AuthResult { Success = false, Message = "Customer session has expired!" };
             }
         }
 
@@ -47,6 +49,11 @@ namespace FribergCarRentals.Services
 
             if (admin != null && admin.Password == password)
             {
+                if (_session.HttpContext.Session.TryGetValue(_customer, out _))
+                {
+                    _session.HttpContext.Session.Remove(_customer);
+                }
+
                 _session.HttpContext.Session.SetInt32(_admin, admin.AdminId);
 
                 return new AuthResult { Success = true };
@@ -67,9 +74,14 @@ namespace FribergCarRentals.Services
 
             if (customer != null && customer.Password == password)
             {
+                if (_session.HttpContext.Session.TryGetValue(_admin, out _))
+                {
+                    _session.HttpContext.Session.Remove(_admin);
+                }
+
                 _session.HttpContext.Session.SetInt32(_customer, customer.CustomerId);
 
-                return new AuthResult { Success = true };
+                return new AuthResult { Success = true, Id = customer.CustomerId };
             }
             else if (customer != null && customer.Password != password)
             {
@@ -95,6 +107,7 @@ namespace FribergCarRentals.Services
     public class AuthResult()
     {
         public bool Success { get; set; } = default!;
+        public int Id { get; set; } = default!;
         public string Message { get; set; } = default!;
     }
             
