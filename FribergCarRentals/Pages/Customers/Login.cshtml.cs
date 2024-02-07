@@ -1,4 +1,4 @@
-using FribergCarRentals.DataAccess.Interfaces;
+using FribergCarRentals.Interfaces;
 using FribergCarRentals.Models;
 using FribergCarRentals.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +8,12 @@ namespace FribergCarRentals.Pages.Customers
 {
     public class LoginModel : PageModel
     {
+        private readonly IAuthService _auth;
         private readonly ICustomerRepository _customerRepo;
-        private const string sessionCustomer = "_customer";
 
-        public LoginModel(ICustomerRepository customerRepo)
+        public LoginModel(IAuthService auth, ICustomerRepository customerRepo)
         {
+            _auth = auth;
             _customerRepo = customerRepo;
             LoginData = new LoginVM();
         }
@@ -31,7 +32,7 @@ namespace FribergCarRentals.Pages.Customers
         public IActionResult OnGetLogout()
         {
             ViewData["NavBar"] = "NoDisplay";
-            HttpContext.Session.Remove(sessionCustomer);
+            _auth.RemoveCustomerAuth();
             LoginData.Action = "logout";
 
             return Page();
@@ -39,34 +40,20 @@ namespace FribergCarRentals.Pages.Customers
 
         public IActionResult OnPost()
         {
-            LoginData.Customer = _customerRepo.GetByEmail(LoginData.Email);
-            if (LoginData.Customer != null && LoginData.Customer.Password == LoginData.Password)
+            var result = _auth.CustomerAuth(LoginData.Email, LoginData.Password);
+            if (!result.Success)
             {
-                HttpContext.Session.SetInt32(sessionCustomer, LoginData.Customer.CustomerId);   // Session state (Key: "_customer", Value: CustomerId)
-
-                if (HttpContext.Session.TryGetValue("_admin", out _))     // Search and close admin session if present.
-                {
-                    HttpContext.Session.Remove("_admin");
-                }
-
-                if (HttpContext.Session.TryGetValue("_vehicleId", out _))
-                {
-                    return RedirectToPage("/Create", "Booking");
-                }
-
-                return RedirectToPage("Overview");
+                ViewData["fail"] = result.Message;
+                return RedirectToPage("/Customers/Login");
             }
-            if (LoginData.Customer == null)
+
+            if (HttpContext.Session.TryGetValue("_vehicleId", out _))
             {
-                ViewData["Fail"] = "There is no account with this email!";
-            }
-            if (LoginData.Customer != null && LoginData.Customer.Password != LoginData.Password)
-            {
-                ViewData["Fail"] = "The email and password does not match!";
+                return RedirectToPage("/Create", "Booking");
             }
 
             LoginData.Action = "login";
-            return Page();
+            return RedirectToPage("/Admins/Overview");
         }
 
         public IActionResult OnPostCreate()
@@ -76,9 +63,9 @@ namespace FribergCarRentals.Pages.Customers
             if (TryValidateModel(customer))
             {
                 _customerRepo.Create(customer);
-                HttpContext.Session.SetInt32(sessionCustomer, customer.CustomerId);   // Session state
+                HttpContext.Session.SetInt32("_customer", customer.CustomerId);
 
-                if (HttpContext.Session.TryGetValue("_admin", out _))     // Search and close admin session if present.
+                if (HttpContext.Session.TryGetValue("_admin", out _))
                 {
                     HttpContext.Session.Remove("_admin");
                 }
@@ -88,7 +75,7 @@ namespace FribergCarRentals.Pages.Customers
                     return RedirectToPage("/Create", "Booking");
                 }
 
-                return RedirectToPage("Overview");
+                return RedirectToPage("/Customers/Overview");
             }
 
             LoginData.Action = "login";

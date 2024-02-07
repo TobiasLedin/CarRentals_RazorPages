@@ -8,71 +8,127 @@
 
 @if (type == "vehicle")
 {
-    <h2>Vehicles</h2>
-    <p>
-        <a asp-page="Create" asp-page-handler="Vehicle">Create new vehicle</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Image
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Brand)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Model)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Year)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].DailyRate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Comment)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Lists.Vehicles)
-            {
+    if (user == "admin")
+    {
+        <h2>Vehicles</h2>
+        <p>
+            <a asp-page="Create" asp-page-handler="Vehicle">Create new vehicle</a>
+        </p>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Brand)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Model)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Year)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyRate) SEK
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Comment)
-                    </td>
-                    <td>
-                        @if (user == "admin")
-                        {
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Brand)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Model)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Year)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lists.Vehicles[0].DailyRate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Comment)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Lists.Vehicles)
+                {
+                    <tr>
+                        <td>
+                            <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DailyRate) SEK
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </td>
+                        <td>
+
                             <a asp-page="Edit" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId">Edit</a>
                             <a asp-page="Delete" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId">Delete</a>
-                        }
-                        @if (user == "customer" || user == "visitor")
-                        {
-                            <a asp-page="Create" asp-page-handler="Booking" asp-route-Object.VehicleId="@item.VehicleId">Book</a>
-                        }
-                    </td>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    if (user == "customer" || user == "visitor")
+    {
+        <h2>Vehicles</h2>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Brand)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Model)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Year)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lists.Vehicles[0].DailyRate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Comment)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Lists.Vehicles)
+                {
+                    <tr>
+                        <td>
+                            <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DailyRate) SEK
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </td>
+                        <td>
+                            <a asp-page="Create" asp-page-handler="Booking" asp-route-Object.VehicleId="@item.VehicleId">Book</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 }
 
 @if (type == "booking")
@@ -240,7 +296,6 @@
 
                     @if (user == "admin")
                     {
-
                         @if (item.Customer != null)
                         {
                             <td>
@@ -253,7 +308,6 @@
                                 Deleted
                             </td>
                         }
-
                         <td>
                             <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
                         </td>

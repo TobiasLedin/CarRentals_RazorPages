@@ -1,6 +1,7 @@
 using FribergCarRentals.DataAccess.Database_Contexts;
-using FribergCarRentals.DataAccess.Interfaces;
 using FribergCarRentals.DataAccess.Repositories;
+using FribergCarRentals.Interfaces;
+using FribergCarRentals.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace FribergCarRentals
@@ -17,7 +18,9 @@ namespace FribergCarRentals
             // Local memory for session state
             builder.Services.AddMemoryCache();
 
-            // Session state function
+            // Session state functions
+            builder.Services.AddHttpContextAccessor();
+
             builder.Services.AddSession(options =>
             {
                 options.Cookie.Name = "FribergCarRentals";
@@ -38,6 +41,9 @@ namespace FribergCarRentals
             builder.Services.AddTransient<IBookingRepository, BookingRepository>();
             builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
             builder.Services.AddTransient<IVehicleRepository, VehicleRepository>();
+
+            // Auth service
+            builder.Services.AddScoped<IAuthService, AuthService>();     // TODO: Utvärdera.
 
             var app = builder.Build();
 

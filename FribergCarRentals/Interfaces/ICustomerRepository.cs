@@ -1,6 +1,6 @@
 ﻿using FribergCarRentals.Models;
 
-namespace FribergCarRentals.DataAccess.Interfaces
+namespace FribergCarRentals.Interfaces
 {
     public interface ICustomerRepository
     {

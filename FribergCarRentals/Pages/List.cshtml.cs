@@ -1,4 +1,4 @@
-using FribergCarRentals.DataAccess.Interfaces;
+using FribergCarRentals.Interfaces;
 using FribergCarRentals.ViewModels;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

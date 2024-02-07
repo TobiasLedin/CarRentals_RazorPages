@@ -1,5 +1,5 @@
 ﻿using FribergCarRentals.DataAccess.Database_Contexts;
-using FribergCarRentals.DataAccess.Interfaces;
+using FribergCarRentals.Interfaces;
 using FribergCarRentals.Models;
 using Microsoft.EntityFrameworkCore;
 

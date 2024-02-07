@@ -1,4 +1,5 @@
-using FribergCarRentals.DataAccess.Interfaces;
+using FribergCarRentals.Interfaces;
+using FribergCarRentals.Services;
 using FribergCarRentals.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,12 +8,11 @@ namespace FribergCarRentals.Pages.Admins
 {
     public class LoginModel : PageModel
     {
-        private readonly IAdminRepository _adminRepo;
-        private const string sessionAdmin = "_admin";
+        private readonly IAuthService _auth;
 
-        public LoginModel(IAdminRepository adminRepo)
+        public LoginModel(IAdminRepository adminRepo, IAuthService auth)
         {
-            _adminRepo = adminRepo;
+            _auth = auth;
             LoginData = new LoginVM();
         }
 
@@ -30,7 +30,7 @@ namespace FribergCarRentals.Pages.Admins
         public IActionResult OnGetLogout()
         {
             ViewData["NavBar"] = "NoDisplay";
-            HttpContext.Session.Remove(sessionAdmin);
+            _auth.RemoveAdminAuth();
             LoginData.Action = "logout";
 
             return Page();
@@ -38,30 +38,15 @@ namespace FribergCarRentals.Pages.Admins
 
         public IActionResult OnPost()
         {
-            LoginData.Admin = _adminRepo.GetByEmail(LoginData.Email);
-            if (LoginData.Admin != null && LoginData.Admin.Password == LoginData.Password)
+            var result = _auth.AdminAuth(LoginData.Email, LoginData.Password);
+            if (!result.Success)
             {
-                HttpContext.Session.SetInt32(sessionAdmin, LoginData.Admin.AdminId);    // Session state (Key: "_admin", Value: AdminId)
-
-                if (HttpContext.Session.TryGetValue("_customer", out _))     // Search and close customer session if present.
-                {
-                    HttpContext.Session.Remove("_customer");
-                }
-
-                return RedirectToPage("/Admins/Overview");
-            }
-
-            if (LoginData.Admin == null)
-            {
-                ViewData["Fail"] = "There is no account with this email!";
-            }
-            else if (LoginData.Admin != null && LoginData.Admin.Password != LoginData.Password)
-            {
-                ViewData["Fail"] = "The email and password does not match!";
+                ViewData["fail"] = result.Message;
+                return RedirectToPage("/Admins/Login");
             }
 
             LoginData.Action = "login";
-            return Page();
+            return RedirectToPage("/Admins/Overview");
         }
     }
 }

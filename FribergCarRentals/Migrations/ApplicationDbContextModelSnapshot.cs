@@ -40,7 +40,7 @@ namespace FribergCarRentals.Migrations
 
                     b.HasKey("AdminId");
 
-                    b.ToTable("Admins");
+                    b.ToTable("Admins", (string)null);
                 });
 
             modelBuilder.Entity("FribergCarRentals.Models.Booking", b =>
@@ -72,7 +72,7 @@ namespace FribergCarRentals.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("FribergCarRentals.Models.Customer", b =>
@@ -101,7 +101,7 @@ namespace FribergCarRentals.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("FribergCarRentals.Models.Vehicle", b =>
@@ -134,7 +134,7 @@ namespace FribergCarRentals.Migrations
 
                     b.HasKey("VehicleId");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("Vehicles", (string)null);
                 });
 
             modelBuilder.Entity("FribergCarRentals.Models.Booking", b =>
