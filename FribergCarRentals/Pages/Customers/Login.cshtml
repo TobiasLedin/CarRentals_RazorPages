@@ -19,14 +19,14 @@
             <form asp-page-handler="Login">
 
                 <div class="form-group">
-                    <label asp-for="LoginData.Email" class="control-label"></label>
-                    <input asp-for="LoginData.Email" class="form-control" />
-                    <span asp-validation-for="LoginData.Email" class="text-danger"></span>
+                    <label asp-for="@Model.LoginData.Email" class="control-label"></label>
+                    <input asp-for="@Model.LoginData.Email" class="form-control" />
+                    <span asp-validation-for="@Model.LoginData.Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="LoginData.Password" class="control-label"></label>
-                    <input asp-for="LoginData.Password" class="form-control" />
-                    <span asp-validation-for="LoginData.Password" class="text-danger"></span>
+                    <label asp-for="@Model.LoginData.Password" class="control-label"></label>
+                    <input asp-for="@Model.LoginData.Password" class="form-control" />
+                    <span asp-validation-for="@Model.LoginData.Password" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">

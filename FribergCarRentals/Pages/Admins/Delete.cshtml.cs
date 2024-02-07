@@ -3,19 +3,21 @@ using FribergCarRentals.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace FribergCarRentals.Pages
+namespace FribergCarRentals.Pages.Admins
 {
     public class DeleteModel : PageModel
     {
         private readonly IVehicleRepository _vehicleRepo;
         private readonly ICustomerRepository _customerRepo;
         private readonly IBookingRepository _bookingRepo;
+        private readonly IAuthService _auth;
 
-        public DeleteModel(IVehicleRepository vehicleRepo, ICustomerRepository customerRepo, IBookingRepository bookingRepo)
+        public DeleteModel(IVehicleRepository vehicleRepo, ICustomerRepository customerRepo, IBookingRepository bookingRepo, IAuthService auth)
         {
             _vehicleRepo = vehicleRepo;
             _customerRepo = customerRepo;
             _bookingRepo = bookingRepo;
+            _auth = auth;
             Object = new DeleteVM();
         }
 
@@ -25,6 +27,13 @@ namespace FribergCarRentals.Pages
 
         public IActionResult OnGetVehicle(int id)
         {
+            var result = _auth.CheckAdminAuth();
+            if (!result.Success)
+            {
+                ViewData["fail"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
             Object.Vehicle = _vehicleRepo.GetById(id);
             Object.Type = "Vehicle";
             return Page();
@@ -32,6 +41,13 @@ namespace FribergCarRentals.Pages
 
         public IActionResult OnGetCustomer(int id)
         {
+            var result = _auth.CheckAdminAuth();
+            if (!result.Success)
+            {
+                ViewData["fail"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
             Object.Customer = _customerRepo.GetById(id);
             Object.Type = "Customer";
             return Page();
@@ -39,12 +55,19 @@ namespace FribergCarRentals.Pages
 
         public IActionResult OnGetBooking(int id)
         {
+            var result = _auth.CheckAdminAuth();
+            if (!result.Success)
+            {
+                ViewData["fail"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
             Object.Booking = _bookingRepo.GetById(id);
             Object.Type = "Booking";
             return Page();
         }
 
-        public IActionResult OnPostVehicle()
+        public IActionResult OnPostVehicle()        // TODO: Fixa auth for Post?
         {
             _vehicleRepo.Delete(Object.Vehicle.VehicleId);
 

@@ -33,7 +33,6 @@ namespace FribergCarRentals.Components
                 UserType.UserType = NoDisplay;
             }
 
-
             return View(UserType);
         }
     }

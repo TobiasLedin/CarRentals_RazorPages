@@ -1,18 +1,17 @@
 ﻿@page "/admin"
-@model LoginModel
+@model FribergCarRentals.Pages.Admins.LoginModel
 @{
     ViewData["Title"] = "Login";
-    ViewData["navbar"] = "login";
     var action = Model.LoginData.Action;
 }
 
 @if (action == "login")
 {
+    <p class="text-danger">@ViewData["fail"]</p>
+
     <div class="text-center">
         <h2>Admin login</h2>
     </div>
-
-    <p class="text-danger">@ViewData["fail"]</p>
 
     <div class="row">
         <div class="col-md-4">

@@ -1,0 +1,250 @@
+﻿@page
+@using FribergCarRentals.Customers.Pages
+@model ListModel
+
+@{
+    var type = Model.Lists.Type;
+}
+
+@if (type == "vehicle")
+{
+    <h2>Vehicles</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Image
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Brand)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Model)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].DailyRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Vehicles[0].Comment)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lists.Vehicles)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DailyRate) SEK
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </td>
+                    <td>
+                        <a asp-page="Create" asp-page-handler="Booking" asp-route-Object.VehicleId="@item.VehicleId">Book</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+@if (type == "booking")
+{
+    <h2>Upcoming bookings</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].BookingStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].BookingEnd)
+                </th>
+                <th>
+                    Vehicle
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].DailyRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].TotalCost)
+                </th>
+                <th>
+                    Customer
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lists.Bookings.Where(x => x.BookingStart >= DateTime.Now.Date))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingEnd)
+                    </td>
+
+                    @if (item.Vehicle != null)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vehicle.Brand) @Html.DisplayFor(modelItem => item.Vehicle.Model)
+                        </td>
+                    }
+                    @if (item.Vehicle == null)
+                    {
+                        <td>
+                            Scrapped
+                        </td>
+                    }
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DailyRate) SEK
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalCost) SEK
+                    </td>
+
+                    @if (item.Customer != null)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Customer.FirstName) @Html.DisplayFor(modelItem => item.Customer.LastName)
+                        </td>
+                    }
+                    @if (item.Customer == null)
+                    {
+                        <td>
+                            Removed
+                        </td>
+                    }
+
+                    <td>
+                        <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Lists.Bookings.Where(x => x.BookingStart > DateTime.Now.Date).Any())
+    {
+        <span>There are no upcoming bookings</span>
+    }
+
+    <h2>Historical bookings</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].BookingStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].BookingEnd)
+                </th>
+                <th>
+                    <span>Vehicle</span>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].DailyRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lists.Bookings[0].TotalCost)
+                </th>
+                <th>
+                    Customer
+                </th>
+                <th></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Lists.Bookings.Where(x => x.BookingStart < DateTime.Now.Date))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookingEnd)
+                    </td>
+
+                    @if (item.Vehicle != null)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vehicle.Brand) @Html.DisplayFor(modelItem => item.Vehicle.Model)
+                        </td>
+                    }
+                    @if (item.Vehicle == null)
+                    {
+                        <td>
+                            Scrapped
+                        </td>
+                    }
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DailyRate) SEK
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalCost) SEK
+                    </td>
+
+                    @if (item.Customer != null)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Customer.FirstName) @Html.DisplayFor(modelItem => item.Customer.LastName)
+                        </td>
+                    }
+                    @if (item.Customer == null)
+                    {
+                        <td>
+                            Deleted
+                        </td>
+                    }
+
+                    <td>
+                        <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Lists.Bookings.Where(x => x.BookingStart < DateTime.Now.Date).Any())
+    {
+        <span>There are no historical bookings</span>
+    }
+}

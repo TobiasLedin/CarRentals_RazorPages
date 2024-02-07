@@ -1,3 +1,4 @@
+using FribergCarRentals.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -5,16 +6,24 @@ namespace FribergCarRentals.Pages.Admins
 {
     public class OverviewModel : PageModel
     {
-        public void OnGet()
+        private readonly IAuthService _auth;
+
+        public OverviewModel(IAuthService auth)
         {
-            if (HttpContext.Session.TryGetValue("_admin", out _))
+            _auth = auth;
+        }
+
+
+        public IActionResult OnGet()
+        {
+            var result = _auth.CheckAdminAuth();
+            if (!result.Success)
             {
-                ViewData["type"] = "Admin";
+                ViewData["fail"] = result.Message;
+                return RedirectToPage("Login");
             }
-            else
-            {
-                ViewData["type"] = "NoAdmin";
-            }
+
+            return Page();
         }
     }
 }

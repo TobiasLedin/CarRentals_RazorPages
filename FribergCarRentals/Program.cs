@@ -24,7 +24,7 @@ namespace FribergCarRentals
             builder.Services.AddSession(options =>
             {
                 options.Cookie.Name = "FribergCarRentals";
-                options.IdleTimeout = TimeSpan.FromMinutes(15);
+                options.IdleTimeout = TimeSpan.FromSeconds(15);
                 options.Cookie.IsEssential = true;
                 options.Cookie.HttpOnly = true;
             });

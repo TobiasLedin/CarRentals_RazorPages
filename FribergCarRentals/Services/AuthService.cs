@@ -25,7 +25,7 @@ namespace FribergCarRentals.Services
             }
             else
             {
-                return new AuthResult { Success = false };
+                return new AuthResult { Success = false, Message = "Administrator session har expired" };
             }
         }
 

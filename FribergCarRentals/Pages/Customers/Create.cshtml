@@ -1,5 +1,5 @@
 ﻿@page
-@model CreateModel
+@model FribergCarRentals.Pages.Customers.CreateModel
 
 @{
     ViewData["Title"] = "Create";
@@ -43,56 +43,6 @@
 
     <div>
         <a asp-page="List" asp-page-handler="Customers">Back to List</a>
-    </div>
-}
-
-@if (type == "vehicle")
-{
-    <h4>Vehicle</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.Brand" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.Brand" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.Brand" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.Model" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.Model" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.Model" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.Year" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.Year" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.Year" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.DailyRate" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.DailyRate" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.DailyRate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.Comment" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.Comment" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.Comment" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.ImageUrl" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.ImageUrl" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.ImageUrl" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" asp-page-handler="Vehicle" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div>
-        <a asp-page="List" asp-page-handler="Vehicle">Back to List</a>
     </div>
 }
 

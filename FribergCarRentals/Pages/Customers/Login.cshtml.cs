@@ -53,7 +53,7 @@ namespace FribergCarRentals.Pages.Customers
             }
 
             LoginData.Action = "login";
-            return RedirectToPage("/Admins/Overview");
+            return RedirectToPage("/Customers/Overview");
         }
 
         public IActionResult OnPostCreate()

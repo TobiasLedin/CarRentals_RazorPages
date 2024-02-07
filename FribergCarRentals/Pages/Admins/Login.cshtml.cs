@@ -21,6 +21,11 @@ namespace FribergCarRentals.Pages.Admins
 
         public IActionResult OnGet()
         {
+            if (TempData["fail"] != null)
+            {
+                ViewData["fail"] = TempData["fail"].ToString();
+            }
+
             ViewData["NavBar"] = "NoDisplay";
             LoginData.Action = "login";
 
@@ -42,7 +47,7 @@ namespace FribergCarRentals.Pages.Admins
             if (!result.Success)
             {
                 ViewData["fail"] = result.Message;
-                return RedirectToPage("/Admins/Login");
+                return RedirectToPage("/Admins/Login");         // FIXA FELMEDDELANDEN
             }
 
             LoginData.Action = "login";
