@@ -110,7 +110,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Lists.Bookings.Where(x => x.BookingStart >= DateTime.Now))
+            @foreach (var item in Model.Lists.Bookings.Where(x => x.BookingStart >= DateTime.Now.Date))
             {
                 <tr>
                     <td>
@@ -165,7 +165,7 @@
             }
         </tbody>
     </table>
-    @if (!Model.Lists.Bookings.Where(x => x.BookingStart > DateTime.Now).Any())    //TODO: Fixa !
+    @if (!Model.Lists.Bookings.Where(x => x.BookingStart > DateTime.Now.Date).Any())
     {
         <span>There are no upcoming bookings</span>
     }
@@ -205,7 +205,7 @@
 
         </thead>
         <tbody>
-            @foreach (var item in Model.Lists.Bookings.Where(x => x.BookingStart < DateTime.Now))
+            @foreach (var item in Model.Lists.Bookings.Where(x => x.BookingStart < DateTime.Now.Date))
             {
                 <tr>
                     <td>
@@ -262,7 +262,7 @@
             }
         </tbody>
     </table>
-    @if (!Model.Lists.Bookings.Where(x => x.BookingStart < DateTime.Now).Any())    //TODO: Fixa !
+    @if (!Model.Lists.Bookings.Where(x => x.BookingStart < DateTime.Now.Date).Any())
     {
         <span>There are no historical bookings</span>
     }
