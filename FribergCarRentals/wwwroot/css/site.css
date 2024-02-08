@@ -121,9 +121,10 @@ body {
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    padding-top: 5rem;
-    padding-left: 5rem;
+    padding-top: 2rem;
+    padding-left: 2rem;
     padding-right: 2rem;
+    padding-bottom: 2rem;
     background-color: var(--white);
     border-left: 1px solid var(--blackish);
     border-right: 1px solid var(--blackish);
@@ -138,9 +139,37 @@ body {
     aspect-ratio: auto;
 }
 
+.btn-general {
+
+}
+
+.btn {
+    background-image: linear-gradient(var(--chrome), var(--white), var(--chrome));
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    margin-top: 0.5rem;
+    text-decoration: none;
+    font-size: 1em;
+    
+
+}
+
+.btn:hover {
+
+}
+
 .login-container {
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-content: baseline;
 
+}
 
+.login-box {
+    background-color: var(--chrome);
+    padding: 2rem;
+    border: 1px solid var(--blackish);
+}
+
+.login-box-spacer {
+    width: 1rem;
 }
