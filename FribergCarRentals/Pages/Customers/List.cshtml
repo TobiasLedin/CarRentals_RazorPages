@@ -33,34 +33,39 @@
                 <th></th>
             </tr>
         </thead>
+
+        
         <tbody>
-            @foreach (var item in Model.Lists.Vehicles)
-            {
+                @foreach (var item in Model.Lists.Vehicles)
+                {
                 <tr>
                     <td>
                         <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;" />
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Brand)
+                            @Html.DisplayFor(modelItem => item.Brand)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Model)
+                            @Html.DisplayFor(modelItem => item.Model)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Year)
+                            @Html.DisplayFor(modelItem => item.Year)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DailyRate) SEK
+                            @Html.DisplayFor(modelItem => item.DailyRate) SEK
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Comment)
+                            @Html.DisplayFor(modelItem => item.Comment)
                     </td>
                     <td>
+                        <div class="btn-table">
                         <a asp-page="Create" asp-page-handler="Booking" asp-route-Object.VehicleId="@item.VehicleId">Book</a>
+                        </div>
                     </td>
                 </tr>
-            }
+                }
         </tbody>
+        
     </table>
 
 }

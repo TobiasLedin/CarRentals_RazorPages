@@ -8,9 +8,9 @@
 @if (type == "vehicle")
 {
     <h2>Vehicles</h2>
-    <p>
-        <a asp-page="Create" asp-page-handler="Vehicle">Create new vehicle</a>
-    </p>
+    <div class="btn-table">
+        <a asp-page="Create" asp-page-handler="Vehicle">Add new vehicle</a>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -58,8 +58,14 @@
                         @Html.DisplayFor(modelItem => item.Comment)
                     </td>
                     <td>
-                        <a asp-page="Edit" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId">Edit</a>
-                        <a asp-page="Delete" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId">Delete</a>
+                        <div class="row">
+                            <div class="btn-table">
+                                <a asp-page="Edit" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId">Edit</a>
+                            </div>
+                            <div class="btn-table btn-delete">
+                                <a asp-page="Delete" asp-page-handler="Vehicle" asp-route-id="@item.VehicleId">Delete</a>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             }

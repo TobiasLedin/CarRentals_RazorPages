@@ -49,14 +49,11 @@ h2 {
 }
 
 h3 {
-    
     font-size: 1.2em;
     font-weight: 600;
-    
 }
 
 h4 {
-
 }
 
 body {
@@ -81,7 +78,7 @@ body {
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
         background: grey;
-    } 
+    }
 
 .container-layout {
     align-items: center;
@@ -92,8 +89,10 @@ body {
 .container-body {
     /*margin-top: 40px*/
     width: 80%;
+    min-width: 750px;
     max-width: 1200px;
-    height: 90%;
+    height: 95%;
+    min-height: 650px;
 }
 
 .container-nav {
@@ -168,8 +167,6 @@ body {
 }
 
 .container-content {
-    
-    width: 100%;
     height: 100%;
     overflow-y: auto;
     padding-top: 2rem;
@@ -184,9 +181,6 @@ body {
     font-family: 'Oswald';
 }
 
-.content-box {
-    
-}
 
 .container-img {
     width: 200px;
@@ -194,20 +188,21 @@ body {
     aspect-ratio: auto;
 }
 
-
+.text-danger {
+    font-family: sans-serif;
+    font-weight: 500;
+    text-shadow: 0px 0px 2px rgb(232, 77, 15), 0px 0px 4px rgb(254, 185, 45);
+}
 
 .nav-link {
     text-shadow: none;
-    transition:ease-in-out;
+    transition: text-shadow 0.2s;
 }
 
-.nav-link:hover {
-    text-shadow: 0px 0px 2px black;
-}
+    .nav-link:hover {
+        text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+    }
 
-.btn-general {
-
-}
 
 .btn {
     background-image: linear-gradient(var(--chrome), var(--white), var(--chrome));
@@ -216,22 +211,57 @@ body {
     text-decoration: none;
     font-size: 1em;
     font-weight: 500;
-
+    transition: box-shadow 0.3s;
 }
 
-.btn:hover {
+    .btn:hover {
+        box-shadow: 0px 0px 5px var(--fire-red), 0px 0px 10px var(--fire-yellow);
+    }
 
+.btn-table {
+    width:max-content;
+    background-image: linear-gradient(var(--chrome), var(--white), var(--chrome));
+    border: 1px solid black;
+    border-radius: 2px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    margin: 0.2em;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+    transition: box-shadow 0.3s;
+}
+
+.btn-delete {
+    background-image: linear-gradient(var(--fire-yellow), var(--fire-red), var(--fire-yellow));
+}
+
+    .btn-table:hover {
+        box-shadow: 0px 0px 8px var(--fire-red), 0px 0px 16px var(--fire-yellow);
+    }
+
+    .btn-table:active {
+        box-shadow: inset 0px 0px 3px black, 0px 0px 8px var(--fire-red), 0px 0px 16px var(--fire-yellow);
+    }
+
+.row {
+    
+    flex-direction: row;
 }
 
 .login-container {
+    height:inherit;
     flex-direction: row;
     justify-content: center;
     align-content: baseline;
-
+    
 }
 
 .login-box {
     background-color: var(--chrome);
+    border-radius: 2px;
+    box-shadow: 0px 0px 4px black;
     padding: 1rem;
     border: 1px solid var(--blackish);
 }
@@ -246,11 +276,15 @@ table {
     border-collapse: collapse;
 }
 
+.list-item {
+    border: 0.5px solid;
+}
+
 th,
 td,
 tr {
-    border: 1px none black;
+    border-bottom: 1px solid black;
     border-spacing: 0;
     padding: 0.5em;
-    
+    text-align: center;
 }
