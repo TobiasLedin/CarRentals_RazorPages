@@ -28,9 +28,60 @@ a {
     text-decoration: none;
 }
 
+h1,
+h2,
+h3,
+h4 {
+    display: block;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    font-family: Oswald;
+}
+
+h1 {
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+h3 {
+    
+    font-size: 1.2em;
+    font-weight: 600;
+    
+}
+
+h4 {
+
+}
+
 body {
     background-color: rgb(202, 202, 202)
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+/*::-webkit-scrollbar-track {
+    background: black;
+}*/
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--chrome);
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: grey;
+    } 
 
 .container-layout {
     align-items: center;
@@ -88,7 +139,6 @@ body {
 }
 
 .nav-item {
-    /*background-image: linear-gradient(rgba(0, 0, 0, 0.4) var(--fire-yellow) var(--fire-red);*/
     padding: 0.4rem;
     font-family: 'Dela Gothic One';
     text-shadow: 1px 2px 5px rgba(0, 0, 0, 0.6);
@@ -118,6 +168,7 @@ body {
 }
 
 .container-content {
+    
     width: 100%;
     height: 100%;
     overflow-y: auto;
@@ -129,14 +180,29 @@ body {
     border-left: 1px solid var(--blackish);
     border-right: 1px solid var(--blackish);
     border-bottom: 1px solid var(--blackish);
-    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.8), inset 0px -1px 3px rgba(0, 0, 0, 0.8), 0px 8px 7px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.8), inset 0px -2px 6px rgba(0, 0, 0, 0.8), 0px 8px 7px rgba(0, 0, 0, 0.6);
     font-family: 'Oswald';
+}
+
+.content-box {
+    
 }
 
 .container-img {
     width: 200px;
     height: auto;
     aspect-ratio: auto;
+}
+
+
+
+.nav-link {
+    text-shadow: none;
+    transition:ease-in-out;
+}
+
+.nav-link:hover {
+    text-shadow: 0px 0px 2px black;
 }
 
 .btn-general {
@@ -146,10 +212,10 @@ body {
 .btn {
     background-image: linear-gradient(var(--chrome), var(--white), var(--chrome));
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-    margin-top: 0.5rem;
+    margin-top: 1em;
     text-decoration: none;
     font-size: 1em;
-    
+    font-weight: 500;
 
 }
 
@@ -166,10 +232,25 @@ body {
 
 .login-box {
     background-color: var(--chrome);
-    padding: 2rem;
+    padding: 1rem;
     border: 1px solid var(--blackish);
 }
 
 .login-box-spacer {
     width: 1rem;
+}
+
+table {
+    display: block;
+    justify-content: flex-start;
+    border-collapse: collapse;
+}
+
+th,
+td,
+tr {
+    border: 1px none black;
+    border-spacing: 0;
+    padding: 0.5em;
+    
 }
