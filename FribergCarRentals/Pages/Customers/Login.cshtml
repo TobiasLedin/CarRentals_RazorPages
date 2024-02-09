@@ -8,73 +8,86 @@
 
 @if (action == "login")
 {
-    <div class="content-box">
-        <div class="login-container">
-            <div class="login-box">
-                <h3>Existing customer</h3>
-                <span class="text-danger">@ViewData["fail"]</span>
 
-                <div class="col-md-4">
-                    <form asp-page-handler="Login">
+    <div class="action-container row">
 
-                        <div class="form-group">
-                            <label asp-for="@Model.LoginData.Email" class="control-label"></label>
-                            <input asp-for="@Model.LoginData.Email" class="form-control" />
-                            <span asp-validation-for="@Model.LoginData.Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.LoginData.Password" class="control-label"></label>
-                            <input asp-for="@Model.LoginData.Password" class="form-control" />
-                            <span asp-validation-for="@Model.LoginData.Password" class="text-danger"></span>
-                        </div>
+        <div class="action-box-container">
+        <div class="action-box">
 
-                        <div class="form-group">
-                            <input type="submit" value="Login" class="btn btn-primary" />
-                        </div>
-                    </form>
-                </div>
+            <h3>Existing customer</h3>
+            <span class="text-danger">@ViewData["fail"]</span>
+
+            <div class="col-md-4">
+                <form asp-page-handler="Login">
+
+                    <div class="form-group">
+                        <label asp-for="@Model.LoginData.Email" class="control-label"></label>
+                        <input asp-for="@Model.LoginData.Email" class="form-control" />
+                        <span asp-validation-for="@Model.LoginData.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.LoginData.Password" class="control-label"></label>
+                        <input asp-for="@Model.LoginData.Password" class="form-control" />
+                        <span asp-validation-for="@Model.LoginData.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Login" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-            <div class="login-box-spacer"></div>
-            <div class="login-box">
-                <h3>New customer</h3>
-                <span class="text-danger">@ViewData["occupied"]</span>
+            
+        </div>
 
-                <div class="col-md-4">
-                    <form asp-page-handler="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                            <label asp-for="@Model.LoginData.Customer.FirstName" class="control-label"></label>
-                            <input asp-for="@Model.LoginData.Customer.FirstName" class="form-control" />
-                            <span asp-validation-for="@Model.LoginData.Customer.FirstName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.LoginData.Customer.LastName" class="control-label"></label>
-                            <input asp-for="@Model.LoginData.Customer.LastName" class="form-control" />
-                            <span asp-validation-for="@Model.LoginData.Customer.LastName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.LoginData.Customer.Email" class="control-label"></label>
-                            <input asp-for="@Model.LoginData.Customer.Email" autocomplete="new-password" class="form-control" />
-                            <span asp-validation-for="@Model.LoginData.Customer.Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="@Model.LoginData.Customer.Password" class="control-label"></label>
-                            <input asp-for="@Model.LoginData.Customer.Password" autocomplete="new-password" class="form-control" />
-                            <span asp-validation-for="@Model.LoginData.Customer.Password" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Create" asp-page-handler="Create" class="btn" />
-                        </div>
-                    </form>
-                </div>
+        
+            
+        
+
+        <div class="login-box-spacer"></div>
+
+        <div class="action-box">
+            <h3>New customer</h3>
+            <span class="text-danger">@ViewData["occupied"]</span>
+
+            <div class="col-md-4">
+                <form asp-page-handler="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="@Model.LoginData.Customer.FirstName" class="control-label"></label>
+                        <input asp-for="@Model.LoginData.Customer.FirstName" class="form-control" />
+                        <span asp-validation-for="@Model.LoginData.Customer.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.LoginData.Customer.LastName" class="control-label"></label>
+                        <input asp-for="@Model.LoginData.Customer.LastName" class="form-control" />
+                        <span asp-validation-for="@Model.LoginData.Customer.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.LoginData.Customer.Email" class="control-label"></label>
+                        <input asp-for="@Model.LoginData.Customer.Email" autocomplete="new-password" class="form-control" />
+                        <span asp-validation-for="@Model.LoginData.Customer.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.LoginData.Customer.Password" class="control-label"></label>
+                        <input asp-for="@Model.LoginData.Customer.Password" autocomplete="new-password" class="form-control" />
+                        <span asp-validation-for="@Model.LoginData.Customer.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" asp-page-handler="Create" class="btn" />
+                    </div>
+                </form>
             </div>
-            <br />
+        </div>
+        </div>
+        <div class="">
+            <a asp-page="/Index" class="nav-link"> <i class="arrow right"></i> Return Home</a>
+        </div>
 
-        </div>
-        <div class="login-container">
-            <a asp-page="/Index" class="nav-link">Return Home</a>
-        </div>
+        
     </div>
+    
+    
+
 }
 
 @if (action == "logout")

@@ -8,8 +8,42 @@
     font-family: 'Dela Gothic One', 'Oswald', sans-serif;
 }
 
-div {
+* {
     box-sizing: border-box;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+/*::-webkit-scrollbar-track {
+    background: black;
+}*/
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--chrome);
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: grey;
+    }
+
+body {
+    background-color: rgb(202, 202, 202)
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+div {
     display: flex;
     flex-direction: column;
 }
@@ -17,7 +51,6 @@ div {
 ul {
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -56,29 +89,37 @@ h3 {
 h4 {
 }
 
-body {
-    background-color: rgb(202, 202, 202)
+table {
+    display: block;
+    justify-content: flex-start;
+    border-collapse: collapse;
 }
 
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
+th,
+td,
+tr {
+    border-bottom: 1px solid black;
+    border-spacing: 0;
+    padding: 0.5em;
+    text-align: center;
 }
 
-/* Track */
-/*::-webkit-scrollbar-track {
-    background: black;
-}*/
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: var(--chrome);
+dl dd {
+    background-color: white;
 }
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: grey;
-    }
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
 
 .container-layout {
     align-items: center;
@@ -122,7 +163,6 @@ body {
     .navbar-nav > li {
         height: 25px;
         padding-right: 1rem;
-        /*border-right: 1px solid var(--chrome);*/
     }
 
 .navbar-logo {
@@ -170,8 +210,8 @@ body {
     height: 100%;
     overflow-y: auto;
     padding-top: 2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
     padding-bottom: 2rem;
     background-color: var(--white);
     border-left: 1px solid var(--blackish);
@@ -180,7 +220,6 @@ body {
     box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.8), inset 0px -2px 6px rgba(0, 0, 0, 0.8), 0px 8px 7px rgba(0, 0, 0, 0.6);
     font-family: 'Oswald';
 }
-
 
 .container-img {
     width: 200px;
@@ -245,20 +284,28 @@ body {
         box-shadow: inset 0px 0px 3px black, 0px 0px 8px var(--fire-red), 0px 0px 16px var(--fire-yellow);
     }
 
-.row {
+.form-control {
+    width: 100%;
+}
+
+
+.action-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
     
+}
+
+.action-box-container {
     flex-direction: row;
 }
 
-.login-container {
-    height:inherit;
-    flex-direction: row;
-    justify-content: center;
-    align-content: baseline;
-    
-}
-
-.login-box {
+.action-box {
+    margin-top: 2rem;
     background-color: var(--chrome);
     border-radius: 2px;
     box-shadow: 0px 0px 4px black;
@@ -267,24 +314,18 @@ body {
 }
 
 .login-box-spacer {
-    width: 1rem;
+    width: 10px;
 }
 
-table {
-    display: block;
-    justify-content: flex-start;
-    border-collapse: collapse;
+.vehicle-img {
+    width: auto;
+    max-width: 250px;
+    height: auto;
+    max-height: 200px;
 }
 
 .list-item {
     border: 0.5px solid;
 }
 
-th,
-td,
-tr {
-    border-bottom: 1px solid black;
-    border-spacing: 0;
-    padding: 0.5em;
-    text-align: center;
-}
+

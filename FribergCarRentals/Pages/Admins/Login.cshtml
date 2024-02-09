@@ -7,15 +7,14 @@
 
 @if (action == "login")
 {
-    <p class="text-danger">@ViewData["fail"]</p>
 
-    <div class="text-center">
-        
-    </div>
+    <div class="action-container">
+        <div>
+            <p class="text-danger">@ViewData["fail"]</p>
+        </div>
 
-    <div class="login-container">
+        <div class="action-box">
 
-        <div class="login-box">
             <h3>Admin login</h3>
 
             <form asp-page-handler="Login">
@@ -33,14 +32,14 @@
                 <div class="form-group">
                     <input type="submit" value="Login" class="btn" />
                 </div>
-                <br />
 
             </form>
-        </div>
-    </div>
 
-    <div class="login-container">
-    <a asp-page="/Index" class="nav-link">Return Home</a>
+        </div>
+
+        <div class="">
+            <a asp-page="/Index" class="nav-link"> <i class="arrow right"></i> Return Home</a>
+        </div>
     </div>
 }
 

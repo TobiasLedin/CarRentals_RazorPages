@@ -46,7 +46,8 @@
                 <div class="form-group">
                     <input type="hidden" asp-for="Object.Vehicle.VehicleId" />
                     <input type="submit" value="Save" asp-page-handler="Vehicle" class="btn btn-primary" />
-                    <a asp-page="List" asp-page-handler="Vehicles">Back</a>
+
+                    <a asp-page="List" asp-page-handler="Vehicles" class="nav-link"> <i class="arrow right"></i> Back</a>
 
                 </div>
             </form>

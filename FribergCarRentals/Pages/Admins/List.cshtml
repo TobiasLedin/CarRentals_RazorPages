@@ -8,9 +8,11 @@
 @if (type == "vehicle")
 {
     <h2>Vehicles</h2>
+
     <div class="btn-table">
         <a asp-page="Create" asp-page-handler="Vehicle">Add new vehicle</a>
     </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -40,7 +42,7 @@
             {
                 <tr>
                     <td>
-                        <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;" />
+                        <img src="@item.ImageUrl" alt="Vehicle image" class="vehicle-img" />
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Brand)
@@ -152,7 +154,11 @@
                     }
 
                     <td>
-                        <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
+                        <div class="row">
+                            <div class="btn-table">
+                                <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             }
@@ -242,7 +248,11 @@
                     }
 
                     <td>
-                        <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
+                        <div class="row">
+                            <div class="btn-table">
+                                <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             }
@@ -258,9 +268,11 @@
 @if (type == "customer")
 {
     <h2>Customers</h2>
-    <p>
-        <a asp-page="Create" asp-page-handler="Customer">Create new customer</a>
-    </p>
+
+    <div class="btn-table">
+        <a asp-page="Create" asp-page-handler="Customer">Add new customer</a>
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -297,8 +309,14 @@
                     </td>
 
                     <td>
-                        <a asp-page="Edit" asp-page-handler="Customer" asp-route-id="@item.CustomerId">Edit</a> |
-                        <a asp-page="Delete" asp-page-handler="Customer" asp-route-id="@item.CustomerId">Delete</a>
+                        <div class="row">
+                            <div class="btn-table">
+                                <a asp-page="Edit" asp-page-handler="Customer" asp-route-id="@item.CustomerId">Edit</a>
+                            </div>
+                            <div class="btn-table btn-delete">
+                                <a asp-page="Delete" asp-page-handler="Customer" asp-route-id="@item.CustomerId">Delete</a>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             }

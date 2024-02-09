@@ -42,22 +42,26 @@
     </div>
 
     <div>
-        <a asp-page="List" asp-page-handler="Customers">Back to List</a>
+        <a asp-page="List" asp-page-handler="Customers" class="nav-link"> <i class="arrow right"></i> Back to List</a>
     </div>
 }
 
 @if (type == "booking")
 {
-    <h4>Booking</h4>
-    <hr />
+    <div class="action-container">
 
-    <span>Vehicle: @Model.Object.Vehicle</span>
-    <br />
-    <span>Daily rate: @Model.Object.Vehicle.DailyRate SEK</span>
-    <br />
+        <div class="action-box">
 
-    <div class="row">
-        <div class="col-md-4">
+            <h2>Create new booking</h2>
+
+            <span>Vehicle</span>
+            <input type="text" value="@Model.Object.Vehicle" readonly />
+
+            <span>Daily rate</span>
+            <input type="text" value="@Model.Object.Vehicle.DailyRate SEK" readonly />
+
+           
+
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -75,12 +79,17 @@
                     <input type="submit" value="Book" asp-page-handler="Booking" class="btn btn-primary" />
                 </div>
             </form>
+
+            
         </div>
+
+        <div>
+            <a asp-page="List" asp-page-handler="Vehicles"> <i class="arrow right"></i> Back to List</a>
+        </div>
+
     </div>
 
-    <div>
-        <a asp-page="List" asp-page-handler="Vehicles">Back to List</a>
-    </div>
+    
 }
 
 @if (type == "confirmation")
@@ -139,7 +148,7 @@
     </table>
     <br />
     <div>
-        <a asp-page="/Customers/Overview">Close</a>
+        <a asp-page="/Customers/Overview" class="nav-link"> <i class="arrow right"></i> Close</a>
     </div>
 }
 
