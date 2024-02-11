@@ -6,95 +6,105 @@
     var type = Model.Object.Type;
 }
 
-@if (type == "Vehicle")
-{
-    <div class="row">
-        <div class="col-md-4">
-            <form method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Object.Vehicle.VehicleId" />
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.Brand" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.Brand" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.Brand" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.Model" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.Model" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.Model" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.Year" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.Year" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.Year" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.DailyRate" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.DailyRate" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.DailyRate" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.Comment" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.Comment" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.Comment" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Vehicle.ImageUrl" class="control-label"></label>
-                    <input asp-for="Object.Vehicle.ImageUrl" class="form-control" />
-                    <span asp-validation-for="Object.Vehicle.ImageUrl" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+<div class="action-container">
+
+    @if (type == "Vehicle")
+    {
+        <div class="action-box">
+
+            <h3>Edit vehicle</h3>
+
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Object.Vehicle.VehicleId" />
-                    <input type="submit" value="Save" asp-page-handler="Vehicle" class="btn btn-primary" />
-
-                    <a asp-page="List" asp-page-handler="Vehicles" class="nav-link"> <i class="arrow right"></i> Back</a>
-
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label asp-for="Object.Vehicle.Brand" class="control-label"></label>
+                        <input asp-for="Object.Vehicle.Brand" class="form-control" />
+                        <span asp-validation-for="Object.Vehicle.Brand" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Object.Vehicle.Model" class="control-label"></label>
+                        <input asp-for="Object.Vehicle.Model" class="form-control" />
+                        <span asp-validation-for="Object.Vehicle.Model" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Object.Vehicle.Year" class="control-label"></label>
+                        <input asp-for="Object.Vehicle.Year" class="form-control" />
+                        <span asp-validation-for="Object.Vehicle.Year" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Object.Vehicle.DailyRate" class="control-label"></label>
+                        <input asp-for="Object.Vehicle.DailyRate" class="form-control" />
+                        <span asp-validation-for="Object.Vehicle.DailyRate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Object.Vehicle.Comment" class="control-label"></label>
+                        <input asp-for="Object.Vehicle.Comment" class="form-control" />
+                        <span asp-validation-for="Object.Vehicle.Comment" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        Image URL
+                        <input asp-for="Object.Vehicle.ImageUrl" class="form-control" />
+                        <span asp-validation-for="Object.Vehicle.ImageUrl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="Object.Vehicle.VehicleId" />
+                        <input type="submit" value="Save" asp-page-handler="Vehicle" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-}
 
-@if (type == "Customer")
-{
-    <div class="row">
-        <div class="col-md-4">
-            <form method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Object.Customer.CustomerId" />
-                <div class="form-group">
-                    <label asp-for="Object.Customer.FirstName" class="control-label"></label>
-                    <input asp-for="Object.Customer.FirstName" class="form-control" />
-                    <span asp-validation-for="Object.Customer.FirstName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Customer.LastName" class="control-label"></label>
-                    <input asp-for="Object.Customer.LastName" class="form-control" />
-                    <span asp-validation-for="Object.Customer.LastName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Customer.Email" class="control-label"></label>
-                    <input asp-for="Object.Customer.Email" class="form-control" />
-                    <span asp-validation-for="Object.Customer.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <span style="font-family:Arial; font-size:small">@Html.DisplayFor(model => model.Object.Customer.Password)</span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Object.Customer.Password" class="control-label">New password</label>
-                    <input asp-for="Object.Customer.Password" value="@Model.Object.Customer.Password" class="form-control" />
-                    <span asp-validation-for="Object.Customer.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+        <a asp-page="List" asp-page-handler="Vehicles" class="nav-link"> <i class="arrow right"></i> Back</a>
+    }
+
+    @if (type == "Customer")
+    {
+        <div class="action-box">
+
+            <h3>Edit customer</h3>
+
+            <div class="col-md-4">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Object.Customer.CustomerId" />
-                    <input type="submit" value="Save" asp-page-handler="Customer" class="btn btn-primary" />
-                    <a asp-page="List" asp-page-handler="Customers">Back</a>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label asp-for="Object.Customer.FirstName" class="control-label"></label>
+                        <input asp-for="Object.Customer.FirstName" class="form-control" />
+                        <span asp-validation-for="Object.Customer.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Object.Customer.LastName" class="control-label"></label>
+                        <input asp-for="Object.Customer.LastName" class="form-control" />
+                        <span asp-validation-for="Object.Customer.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Object.Customer.Email" class="control-label"></label>
+                        <input asp-for="Object.Customer.Email" class="form-control" />
+                        <span asp-validation-for="Object.Customer.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <span style="font-family:Arial; font-size:small">@Html.DisplayFor(model => model.Object.Customer.Password)</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Object.Customer.Password" class="control-label">New password</label>
+                        <input asp-for="Object.Customer.Password" value="@Model.Object.Customer.Password" class="form-control" />
+                        <span asp-validation-for="Object.Customer.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="Object.Customer.CustomerId" />
+                        <input type="submit" value="Save" asp-page-handler="Customer" class="btn btn-primary" />
+                        
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-}
+
+        <a asp-page="List" asp-page-handler="Customers" class="nav-link"> <i class="arrow right"></i> Back</a>
+    }
+</div>
 
 @section Scripts {
     @{

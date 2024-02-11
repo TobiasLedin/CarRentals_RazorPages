@@ -158,23 +158,23 @@
     }
     <script>
 
-        // Add custom jQuery validation method (NoPastDateAttribute) for server-side validation.
+        // Add custom jQuery validation method (NoPastDateAttribute) for client-side validation.
         // Restricts user to select a BookingStart date that is less than DateTime.Now.Date.
         jQuery.validator.addMethod('nopastdate', function (value, element) {
             var currentDate = new Date().setHours(0, 0, 0, 0);
             var inputDate = new Date(value).setHours(0, 0, 0, 0);
             return this.optional(element) || inputDate >= currentDate;
-        }, 'Please enter a date in the future.');
+        }, 'Date cannot be in the past.');
 
         jQuery.validator.unobtrusive.adapters.addBool('nopastdate');
 
-        // Add custom jQuery validation method (EqualOrGreater) for server-side validation.
+        // Add custom jQuery validation method (EqualOrGreater) for client-side validation.
         // Restricts user to select a BookingEnd date that is less than BookingStart date.
         jQuery.validator.addMethod('equalorgreater', function (value, element, params) {
             var bookingStart = new Date($(params).val());
             var bookingEnd = new Date(value);
             return this.optional(element) || bookingEnd >= bookingStart;
-        }, 'Return date cannot be less than Pickup date.');
+        }, 'Cannot be less than Pickup date.');
 
         jQuery.validator.unobtrusive.adapters.add('equalorgreater', ['bookingstart'], function (options) {
             options.rules['equalorgreater'] = '#' + options.params['bookingstart'];

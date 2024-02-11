@@ -7,12 +7,8 @@
 
 <div class="action-container">
 
-
-
-
     @if (type == "Vehicle")
     {
-
         <div class="action-box">
 
             <h2>Vehicle</h2>
@@ -58,7 +54,6 @@
         </div>
 
         <a asp-page="List" asp-page-handler="Vehicles" class="nav-link"> <i class="arrow right"></i> Back to List</a>
-
     }
 
     @if (type == "Customer")
@@ -93,7 +88,7 @@
             <form method="post">
                 <input type="hidden" asp-for="Object.Customer.CustomerId" />
                 <input type="submit" value="Delete" asp-page-handler="Customer" class="btn btn-delete" />
-                
+
             </form>
         </div>
 
@@ -137,12 +132,15 @@
 
             <form method="post">
                 <input type="hidden" asp-for="Object.Booking.BookingId" />
-                <input type="submit" value="Delete" asp-page-handler="Booking" class="btn btn-delete" /> |
-                
+                <input type="submit" value="Delete" asp-page-handler="Booking" class="btn btn-delete" />
+
             </form>
+
+        </div>
+        <div class="nav-link">
+        <a asp-page="List" asp-page-handler="Bookings"> <i class="arrow right"></i> Back to List</a>
         </div>
 
-        <a asp-page="List" asp-page-handler="Bookings" class="nav-link"> <i class="arrow right"></i> Back to List</a>
     }
 
 </div>

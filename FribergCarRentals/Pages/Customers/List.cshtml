@@ -3,9 +3,10 @@
 
 @{
     var type = Model.Lists.Type;
+    ViewData["Title"] = type;
 }
 
-@if (type == "vehicle")
+@if (type == "Vehicles")
 {
     <h2>Vehicles</h2>
 
@@ -71,7 +72,7 @@
 
 }
 
-@if (type == "booking")
+@if (type == "Bookings")
 {
     <h2>Upcoming bookings</h2>
 
@@ -151,7 +152,7 @@
 
                     <td>
                         <div class="btn-table">
-                        <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
+                        <a asp-page="/Customers/Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
                         </div>
                     </td>
                 </tr>
@@ -163,6 +164,8 @@
     {
         <span>There are no upcoming bookings</span>
     }
+
+    <br />
 
     <h2>Historical bookings</h2>
 
@@ -243,7 +246,7 @@
 
                     <td>
                         <div class="btn-table">
-                        <a asp-page="Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
+                        <a asp-page="/Customers/Delete" asp-page-handler="Booking" asp-route-id="@item.BookingId">Delete</a>
                         </div>
                     </td>
 

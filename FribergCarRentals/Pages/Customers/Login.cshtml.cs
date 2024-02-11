@@ -20,6 +20,7 @@ namespace FribergCarRentals.Pages.Customers
 
         [BindProperty]
         public LoginVM LoginData { get; set; }
+        
 
         public IActionResult OnGet()
         {
@@ -27,7 +28,7 @@ namespace FribergCarRentals.Pages.Customers
             {
                 ViewData["fail"] = TempData["expired"].ToString();
             }
-
+         
             ViewData["NavBar"] = "NoDisplay";
             LoginData.Action = "login";
 

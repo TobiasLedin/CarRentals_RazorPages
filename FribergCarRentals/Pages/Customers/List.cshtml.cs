@@ -26,20 +26,29 @@ namespace FribergCarRentals.Pages.Customers
 
         public IActionResult OnGetVehicles()
         {
-            Lists.Type = "vehicle";
+            var result = _auth.CheckCustomerAuth();
+            if (!result.Success)
+            {
+                TempData["expired"] = result.Message;
+                return RedirectToPage("Login");
+            }
+
             Lists.Vehicles = _vehicleRepo.GetAll();
+            Lists.Type = "Vehicles";
             return Page();
         }
 
         public IActionResult OnGetBookings()
         {
             var result = _auth.CheckCustomerAuth();
-            if (result.Success)
+            if (!result.Success)
             {
-                Lists.Bookings = _bookingRepo.GetAllByCustomer(result.Id);
+                TempData["expired"] = result.Message;
+                return RedirectToPage("Login");
             }
 
-            Lists.Type = "booking";
+            Lists.Bookings = _bookingRepo.GetAllByCustomer(result.Id);
+            Lists.Type = "Bookings";
             return Page();
         }
     }

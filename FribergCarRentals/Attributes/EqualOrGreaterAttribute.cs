@@ -19,7 +19,7 @@ namespace FribergCarRentals.Attributes
 
             if (currentValue < comparisonValue)
             {
-                return new ValidationResult(ErrorMessage = "Return date cannot be less than Pickup date");
+                return new ValidationResult(ErrorMessage = "Cannot be less than Pickup date");
             }
 
             return ValidationResult.Success;
@@ -28,7 +28,7 @@ namespace FribergCarRentals.Attributes
         public void AddValidation(ClientModelValidationContext context)
         {
             context.Attributes.Add("data-val", "true");
-            context.Attributes.Add("data-val-equalorgreater", "Return date must be equal to or greater than Pickup date");
+            context.Attributes.Add("data-val-equalorgreater", "Cannot be less than Pickup date");
             context.Attributes.Add("data-val-equalorgreater-bookingstart", _bookingStart);
         }
     }

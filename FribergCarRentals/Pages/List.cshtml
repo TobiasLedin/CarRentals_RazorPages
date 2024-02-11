@@ -1,0 +1,67 @@
+﻿@page
+@model FribergCarRentals.Pages.ListModel
+@{
+    ViewData["Title"] = "Vehicles";
+}
+
+<h2>Vehicles</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Image
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicles[0].Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicles[0].Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicles[0].DailyRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicles[0].Comment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (var item in Model.Vehicles)
+        {
+            <tr>
+                <td>
+                    <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DailyRate) SEK
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+
+                    <div class="btn-table">
+                        <a asp-page="/Customers/Create" asp-page-handler="Booking" asp-route-VehicleId="@item.VehicleId">Book</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
