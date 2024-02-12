@@ -90,21 +90,28 @@ h4 {
 }
 
 table {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    width: 90%;
     border-collapse: collapse;
-    margin-bottom: 2rem;
 }
 
-th,
-td,
-tr {
-    border-bottom: 1px solid black;
-    border-spacing: 0;
-    padding: 0.5em;
-    text-align: center;
+table, th, td {
+    
+    border-bottom: 1px solid;
+    text-align: left;
+    padding: 1rem;
 }
+
+th {
+    border-bottom: 2px solid;
+}
+
+.vehicle-img {
+    width: auto;
+    max-width: 250px;
+    height: auto;
+    max-height: 200px;
+}
+
 
 dl dd {
     background-color: white;
@@ -144,7 +151,7 @@ dl dd {
     flex-direction: row;
     width: 100%;
     justify-content: center;
-    height: 120px; /* Potentiell felkälla */
+    height: 120px;
 }
 
 .navbar {
@@ -326,19 +333,6 @@ dl dd {
     box-shadow: 0px 0px 4px black;
     padding: 1rem;
     border: 1px solid var(--blackish);
-}
-
-.dual {
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
-}
-
-.vehicle-img {
-    width: auto;
-    max-width: 250px;
-    height: auto;
-    max-height: 200px;
 }
 
 .list-item {

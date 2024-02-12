@@ -6,11 +6,11 @@
 
 <h2>Vehicles</h2>
 
-<table class="table">
+<table>
     <thead>
         <tr>
             <th>
-                Image
+                
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Vehicles[0].Brand)
@@ -37,7 +37,7 @@
         {
             <tr>
                 <td>
-                    <img src="@item.ImageUrl" alt="Vehicle image" style="max-width: 150px; max-height: 150px; width: auto; height: auto;" />
+                    <img src="@item.ImageUrl" alt="Vehicle image" class="vehicle-img" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Brand)
