@@ -168,10 +168,12 @@
             </tbody>
         </table>
 
-        @if (!Model.Lists.Bookings.Where(x => x.BookingStart > DateTime.Now.Date).Any())
+        @if (!Model.Lists.Bookings.Where(x => x.BookingStart >= DateTime.Now.Date).Any())
         {
             <span>There are no upcoming bookings</span>
         }
+
+        <br />
 
         <h2>Historical bookings</h2>
 

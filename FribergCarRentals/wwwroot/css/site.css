@@ -245,6 +245,10 @@ dl dd {
     text-shadow: 0px 0px 2px rgb(232, 77, 15), 0px 0px 4px rgb(254, 185, 45);
 }
 
+.text-logout {
+    margin-top: 10em;
+}
+
 .nav-link {
     text-shadow: none;
     transition: text-shadow 0.2s;
@@ -321,18 +325,23 @@ dl dd {
 }
 
 .dual-box {
+    width: 60%;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
 .action-box {
-    width: 35%;
+    width: 250px;
     margin-top: 2rem;
     background-color: var(--chrome);
     border-radius: 2px;
     box-shadow: 0px 0px 4px black;
     padding: 1rem;
     border: 1px solid var(--blackish);
+}
+
+.wide {
+    width: 400px;
 }
 
 .list-item {
